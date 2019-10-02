@@ -33,7 +33,9 @@ public class MainActivity extends AppCompatActivity {
     private Button decimal;
     private Button negpos;
     private EditText input;
+    private EditText hiddeninput;
     private TextView result;
+    private TextView hiddenresult;
     private final char ADDITION = '+';
     private final char SUBSTRACTION = '-';
     private final char DIVISION = '/';
@@ -58,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 input.setText(input.getText().toString()+onetotenchar[1]);
+                hiddeninput.setText(hiddeninput.getText().toString()+onetotenchar[1]);
             }
         });
 
@@ -65,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 input.setText(input.getText().toString()+onetotenchar[2]);
+                hiddeninput.setText(hiddeninput.getText().toString()+onetotenchar[2]);
             }
         });
 
@@ -72,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 input.setText(input.getText().toString()+onetotenchar[3]);
+                hiddeninput.setText(hiddeninput.getText().toString()+onetotenchar[3]);
             }
         });
 
@@ -79,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 input.setText(input.getText().toString()+onetotenchar[4]);
+                hiddeninput.setText(hiddeninput.getText().toString()+onetotenchar[4]);
             }
         });
 
@@ -86,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 input.setText(input.getText().toString()+onetotenchar[5]);
+                hiddeninput.setText(hiddeninput.getText().toString()+onetotenchar[5]);
             }
         });
 
@@ -93,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 input.setText(input.getText().toString()+onetotenchar[6]);
+                hiddeninput.setText(hiddeninput.getText().toString()+onetotenchar[6]);
             }
         });
 
@@ -100,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 input.setText(input.getText().toString()+onetotenchar[7]);
+                hiddeninput.setText(hiddeninput.getText().toString()+onetotenchar[7]);
             }
         });
 
@@ -107,6 +116,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 input.setText(input.getText().toString()+onetotenchar[8]);
+                hiddeninput.setText(hiddeninput.getText().toString()+onetotenchar[8]);
             }
         });
 
@@ -114,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 input.setText(input.getText().toString()+onetotenchar[9]);
+                hiddeninput.setText(hiddeninput.getText().toString()+onetotenchar[9]);
             }
         });
 
@@ -121,6 +132,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 input.setText(input.getText().toString()+onetotenchar[0]);
+                hiddeninput.setText(hiddeninput.getText().toString()+onetotenchar[0]);
             }
         });
 
@@ -163,14 +175,30 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 input.setText(input.getText().toString()+onetotenchar[15]);
+                hiddeninput.setText(hiddeninput.getText().toString()+onetotenchar[15]);
             }
         });
 
         negpos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                double x = Double.parseDouble(input.getText().toString())*(-1);
-                input.setText(Double.toString(x));
+                if(hiddeninput.getText().toString().matches("^(-?\\d+\\.\\d+)$|^(-?\\d+)$|^(-?\\.\\d+)$"))
+                {
+                    double x = Double.parseDouble(hiddeninput.getText().toString());
+                    if (x%1==0)
+                    {
+                        int y = Integer.parseInt(hiddeninput.getText().toString())*(-1);
+                        input.setText(Integer.toString(y));
+                        hiddeninput.setText(Integer.toString(y));
+
+                    }
+                    else
+                    {
+                        x = Double.parseDouble(hiddeninput.getText().toString())*(-1);
+                        input.setText(Double.toString(x));
+                        hiddeninput.setText(Double.toString(x));
+                    }
+                }
             }
         });
 
@@ -179,8 +207,17 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Calculate();
                 ACTION = ADDITION;
-                result.setText(String.valueOf(num1)+"+");
-                input.setText(null);
+                if(!Double.isNaN(num1))
+                {
+                    if(num1%1==0)
+                    {
+                        result.setText(String.valueOf(Math.round(num1))+"+");
+                    }
+                    else
+                        result.setText(String.valueOf(num1)+"+");
+                    input.setText(null);
+                    hiddeninput.setText(null);
+                }
             }
         });
 
@@ -189,8 +226,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Calculate();
                 ACTION = SUBSTRACTION;
-                result.setText(String.valueOf(num1)+"-");
-                input.setText(null);
+                if(!Double.isNaN(num1)) {
+                    if (num1 % 1 == 0) {
+                        result.setText(String.valueOf(Math.round(num1)) + "-");
+                    } else
+                        result.setText(String.valueOf(num1) + "-");
+                    input.setText(null);
+                    hiddeninput.setText(null);
+                }
             }
         });
 
@@ -199,8 +242,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Calculate();
                 ACTION = MULTIPLICATION;
-                result.setText(String.valueOf(num1)+"*");
-                input.setText(null);
+                if(!Double.isNaN(num1)) {
+                    if (num1 % 1 == 0) {
+                        result.setText(String.valueOf(Math.round(num1)) + "*");
+                    } else
+                        result.setText(String.valueOf(num1) + "*");
+                    input.setText(null);
+                    hiddeninput.setText(null);
+                }
             }
         });
 
@@ -209,8 +258,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Calculate();
                 ACTION = DIVISION;
-                result.setText(String.valueOf(num1)+"/");
-                input.setText(null);
+                if(!Double.isNaN(num1)) {
+                    if (num1 % 1 == 0) {
+                        result.setText(String.valueOf(Math.round(num1)) + "/");
+                    } else
+                        result.setText(String.valueOf(num1) + "/");
+                    input.setText(null);
+                    hiddeninput.setText(null);
+                }
             }
         });
 
@@ -219,14 +274,21 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Calculate();
                 ACTION = PERCENT;
-                result.setText(String.valueOf(num1)+"%");
-                input.setText(null);
+                if(!Double.isNaN(num1)) {
+                    if (num1 % 1 == 0) {
+                        result.setText(String.valueOf(Math.round(num1)) + "%");
+                    } else
+                        result.setText(String.valueOf(num1) + "%");
+                    input.setText(null);
+                    hiddeninput.setText(null);
+                }
             }
         });
 
         clear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                hiddeninput.setText(null);
                 input.setText(null);
                 result.setText(null);
                 num1 = Double.NaN;
@@ -237,13 +299,12 @@ public class MainActivity extends AppCompatActivity {
         del.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if(input.getText().length()>0)
+                if(hiddeninput.getText().length()>0)
                 {
-                    String newString = input.getText().toString();
+                    String newString = hiddeninput.getText().toString();
                     newString = newString.substring(0,newString.length()-1);
-                    input.setText(null);
                     input.setText(newString);
+                    hiddeninput.setText(newString);
                 }
             }
         });
@@ -253,8 +314,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Calculate();
                 ACTION= EQUAL;
-                result.setText(result.getText().toString()+String.valueOf(num2)+" = "+String.valueOf(num1));
-                input.setText(null);
+                if(!Double.isNaN(num1)) {
+                    if (num1 % 1 == 0) {
+                        result.setText(String.valueOf(Math.round(num1)));
+                    } else
+                        result.setText(String.valueOf(num1));
+
+                    input.setText(null);
+                    hiddeninput.setText(null);
+                }
             }
         });
     }
@@ -282,14 +350,15 @@ public class MainActivity extends AppCompatActivity {
         decimal=(Button)findViewById(R.id.btnDecimal);
         negpos=(Button)findViewById(R.id.btnNegPos);
         input=(EditText)findViewById(R.id.editTextInput);
+        hiddeninput=(EditText)findViewById(R.id.editTextHidden);
         result=(TextView)findViewById(R.id.textViewResult);
     }
 
     private void Calculate()
     {
-        if(!Double.isNaN(num1))
+        if(!Double.isNaN(num1) && !hiddeninput.getText().toString().matches(""))
         {
-            num2 = Double.parseDouble(input.getText().toString());
+            num2 = Double.parseDouble(hiddeninput.getText().toString());
 
             switch(ACTION)
             {
@@ -309,13 +378,16 @@ public class MainActivity extends AppCompatActivity {
                     num1=(num2/num1)*100;
                     break;
                 case EQUAL:
+
                     break;
             }
-
         }
         else
         {
-            num1=Double.parseDouble(input.getText().toString());
+            if(!hiddeninput.getText().toString().matches(""))
+            {
+                num1=Double.parseDouble(hiddeninput.getText().toString());
+            }
         }
     }
 }

@@ -9,6 +9,20 @@
     app:layout_anchorGravity="center"
     tools:context=".MainActivity">
 
+    <EditText
+        android:id="@+id/editTextHidden"
+        android:visibility="invisible"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:height="2dp"
+        android:ems="10"
+        android:inputType="text"
+        android:text="@string/txtHidden"
+        android:textSize="2sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TableLayout
         android:id="@+id/Table"
         android:layout_width="wrap_content"
@@ -54,12 +68,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_span="4"
+                android:autoSizeMaxTextSize="50dp"
+                android:autoSizeMinTextSize="20dp"
+                android:autoSizeTextType="uniform"
                 android:lineHeight="50dp"
                 android:maxHeight="120dp"
                 android:minHeight="100dp"
                 android:padding="5dp"
                 android:text="@string/txtResult"
-                android:textAlignment="viewEnd"
+                android:textAlignment="textEnd"
                 android:textColor="@android:color/black"
                 android:textSize="50sp"
                 android:textStyle="bold" />
@@ -321,4 +338,5 @@
                 android:textSize="30sp" />
         </TableRow>
     </TableLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

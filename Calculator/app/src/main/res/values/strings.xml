@@ -21,5 +21,6 @@
     <string name="txtEqual">=</string>
     <string name="txtInput"></string>
     <string name="txtResult"></string>
+    <string name="txtHidden"></string>
     <string name="txtPercent">%</string>
 </resources>
