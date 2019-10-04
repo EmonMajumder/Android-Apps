@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Calculator</string>
+    <string name="app_name">Emon Calc</string>
     <string name="txtClear">C</string>
     <string name="txtRemoveDigit">del</string>
     <string name="txtDivision">/</string>
