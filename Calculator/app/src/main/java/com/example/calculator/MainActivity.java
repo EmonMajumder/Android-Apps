@@ -194,23 +194,19 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view)
             {
-            if(validateUserInput(hiddeninput.getText().toString())) {
-                double x = Double.parseDouble(hiddeninput.getText().toString());
-                if (x % 1 == 0) {
-                    int y = Integer.parseInt(hiddeninput.getText().toString()) * (-1);
-                    hiddeninput.setText(null);
-                    input.setText(null);
-                    input.setText(Integer.toString(y));
-                    hiddeninput.setText(Integer.toString(y));
+                if(validateUserInput(hiddeninput.getText().toString())) {
+                    double x = Double.parseDouble(hiddeninput.getText().toString());
+                    if (x % 1 == 0) {
+                        int y = Integer.parseInt(hiddeninput.getText().toString()) * (-1);
+                        input.setText(Integer.toString(y));
+                        hiddeninput.setText(Integer.toString(y));
 
-                } else {
-                    x = Double.parseDouble(hiddeninput.getText().toString()) * (-1);
-                    hiddeninput.setText(null);
-                    input.setText(null);
-                    input.setText(Double.toString(x));
-                    hiddeninput.setText(Double.toString(x));
+                    } else {
+                        x = Double.parseDouble(hiddeninput.getText().toString()) * (-1);
+                        input.setText(Double.toString(x));
+                        hiddeninput.setText(Double.toString(x));
+                    }
                 }
-            }
             }
         });
 
@@ -413,15 +409,20 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case EQUAL:
                         break;
-                    }
+                }
             }
-                else
+            else
+            {
+                input.setText(null);
+                hiddeninput.setText(null);
                 result.setText("Error!");
+            }
+
         }
         else if(validateUserInput(hiddeninput.getText().toString()))
-            {
-                num1=Double.parseDouble(hiddeninput.getText().toString());
-            }
+        {
+            num1=Double.parseDouble(hiddeninput.getText().toString());
+        }
     }
 }
 
