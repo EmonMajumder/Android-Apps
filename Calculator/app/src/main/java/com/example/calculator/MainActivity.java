@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     private double num1 = Double.NaN;
     private double num2 = Double.NaN;
     private char ACTION;
+    private boolean dividebyzeroerror=false;
 
     private boolean validateUserInput(String s)
     {
@@ -213,7 +214,8 @@ public class MainActivity extends AppCompatActivity {
         plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Calculate();
+            Calculate();
+            if(!dividebyzeroerror){
                 ACTION = ADDITION;
                 if(!Double.isNaN(num1))
                 {
@@ -227,21 +229,37 @@ public class MainActivity extends AppCompatActivity {
                     hiddeninput.setText(null);
                 }
             }
+            else
+            {
+                input.setText(null);
+                hiddeninput.setText(null);
+                num1 = Double.NaN;
+                num2 = Double.NaN;
+            }
+
+            }
         });
 
         minus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Calculate();
-                ACTION = SUBSTRACTION;
-                if(!Double.isNaN(num1)) {
-                    if(num1%1==0)
-                    {
-                        input.setText(String.valueOf(Math.round(num1))+"-");
+                if(!dividebyzeroerror) {
+                    ACTION = SUBSTRACTION;
+                    if (!Double.isNaN(num1)) {
+                        if (num1 % 1 == 0) {
+                            input.setText(String.valueOf(Math.round(num1)) + "-");
+                        } else
+                            input.setText(String.valueOf(num1) + "-");
+                        hiddeninput.setText(null);
                     }
-                    else
-                        input.setText(String.valueOf(num1)+"-");
+                }
+                else
+                {
+                    input.setText(null);
                     hiddeninput.setText(null);
+                    num1 = Double.NaN;
+                    num2 = Double.NaN;
                 }
             }
         });
@@ -250,16 +268,23 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Calculate();
-                ACTION = MULTIPLICATION;
-                if(!Double.isNaN(num1)) {
-                    if(num1%1==0)
-                    {
-                        input.setText(String.valueOf(Math.round(num1))+"*");
-                    }
-                    else
-                        input.setText(String.valueOf(num1)+"*");
+                if(!dividebyzeroerror) {
+                    ACTION = MULTIPLICATION;
+                    if (!Double.isNaN(num1)) {
+                        if (num1 % 1 == 0) {
+                            input.setText(String.valueOf(Math.round(num1)) + "*");
+                        } else
+                            input.setText(String.valueOf(num1) + "*");
 //                    input.setText(null);
+                        hiddeninput.setText(null);
+                    }
+                }
+                else
+                {
+                    input.setText(null);
                     hiddeninput.setText(null);
+                    num1 = Double.NaN;
+                    num2 = Double.NaN;
                 }
             }
         });
@@ -268,16 +293,23 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Calculate();
-                ACTION = DIVISION;
-                if(!Double.isNaN(num1)) {
-                    if(num1%1==0)
-                    {
-                        input.setText(String.valueOf(Math.round(num1))+"/");
-                    }
-                    else
-                        input.setText(String.valueOf(num1)+"/");
+                if(!dividebyzeroerror) {
+                    ACTION = DIVISION;
+                    if (!Double.isNaN(num1)) {
+                        if (num1 % 1 == 0) {
+                            input.setText(String.valueOf(Math.round(num1)) + "/");
+                        } else
+                            input.setText(String.valueOf(num1) + "/");
 //                    input.setText(null);
+                        hiddeninput.setText(null);
+                    }
+                }
+                else
+                {
+                    input.setText(null);
                     hiddeninput.setText(null);
+                    num1 = Double.NaN;
+                    num2 = Double.NaN;
                 }
             }
         });
@@ -286,16 +318,23 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Calculate();
-                ACTION = PERCENT;
-                if(!Double.isNaN(num1)) {
-                    if(num1%1==0)
-                    {
-                        input.setText(String.valueOf(Math.round(num1))+"%");
-                    }
-                    else
-                        input.setText(String.valueOf(num1)+"%");
+                if(!dividebyzeroerror) {
+                    ACTION = PERCENT;
+                    if (!Double.isNaN(num1)) {
+                        if (num1 % 1 == 0) {
+                            input.setText(String.valueOf(Math.round(num1)) + "%");
+                        } else
+                            input.setText(String.valueOf(num1) + "%");
 //                    input.setText(null);
+                        hiddeninput.setText(null);
+                    }
+                }
+                else
+                {
+                    input.setText(null);
                     hiddeninput.setText(null);
+                    num1 = Double.NaN;
+                    num2 = Double.NaN;
                 }
             }
         });
@@ -328,23 +367,21 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Calculate();
-                if(!Double.isNaN(num1) && !Double.isNaN(num2))
-                {
-                    //ACTION= EQUAL;
-                    if(!Double.isNaN(num1)) {
+                if(!dividebyzeroerror) {
+                    if (!Double.isNaN(num1) && !Double.isNaN(num2)) {
+                        //ACTION= EQUAL;
+                        if (!Double.isNaN(num1)) {
+                            if (num1 % 1 == 0) {
+                                result.setText(String.valueOf(Math.round(num1)));
+                            } else
+                                result.setText(String.valueOf(num1));
+                        }
+                    } else if (!Double.isNaN(num1)) {
                         if (num1 % 1 == 0) {
                             result.setText(String.valueOf(Math.round(num1)));
-                        } else
+                        } else {
                             result.setText(String.valueOf(num1));
-                    }
-                }
-                else if (!Double.isNaN(num1))
-                {
-                    if (num1 % 1 == 0) {
-                        result.setText(String.valueOf(Math.round(num1)));
-                    } else
-                    {
-                        result.setText(String.valueOf(num1));
+                        }
                     }
                 }
                 input.setText(null);
@@ -384,6 +421,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void Calculate()
     {
+        dividebyzeroerror=false;
         if(!Double.isNaN(num1))
         {
             if(validateUserInput(hiddeninput.getText().toString())){
@@ -401,8 +439,9 @@ public class MainActivity extends AppCompatActivity {
                     case DIVISION:
                         if (num2 == 0) {
                             result.setText("Division by Zero error");
+                            dividebyzeroerror = true;
                         } else
-                            num1 = num1 / num2;
+                            num1 = (num1 / num2);
                         break;
                     case PERCENT:
                         num1 = (num2 / num1) * 100;
