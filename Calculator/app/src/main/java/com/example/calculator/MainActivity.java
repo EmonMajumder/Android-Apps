@@ -423,6 +423,11 @@ public class MainActivity extends AppCompatActivity {
         {
             num1=Double.parseDouble(hiddeninput.getText().toString());
         }
+        else if(validateUserInput(result.getText().toString()))
+        {
+            num1=Double.parseDouble(result.getText().toString());
+        }
+
     }
 }
 
