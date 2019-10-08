@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private char ACTION;
     private boolean dividebyzeroerror=false;
 
+    //Function to check a number for Validation
     private boolean validateUserInput(String s)
     {
         if(s.matches("^(-?\\d+\\.\\d+)$|^(-?\\d+)$|^(-?\\.\\d+)$"))
@@ -58,8 +59,8 @@ public class MainActivity extends AppCompatActivity {
             return false;
     }
 
-
     @Override
+    //Generate al the layout elements. And their functionality.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -145,41 +146,6 @@ public class MainActivity extends AppCompatActivity {
                 hiddeninput.setText(hiddeninput.getText().toString()+onetotenchar[0]);
             }
         });
-
-//        percent.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                input.setText(input.getText().toString()+onetotenchar[10]);
-//            }
-//        });
-//
-//        division.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                input.setText(input.getText().toString()+onetotenchar[11]);
-//            }
-//        });
-//
-//        multiplication.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                input.setText(input.getText().toString()+onetotenchar[12]);
-//            }
-//        });
-//
-//        minus.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                input.setText(input.getText().toString()+onetotenchar[13]);
-//            }
-//        });
-//
-//        plus.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                input.setText(input.getText().toString()+onetotenchar[14]);
-//            }
-//        });
 
         decimal.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -404,8 +370,13 @@ public class MainActivity extends AppCompatActivity {
                 {
                     String newString = hiddeninput.getText().toString();
                     newString = newString.substring(0,newString.length()-1);
-                    input.setText(newString);
                     hiddeninput.setText(newString);
+                }
+                if(input.getText().length()>0)
+                {
+                    String newString = input.getText().toString();
+                    newString = newString.substring(0,newString.length()-1);
+                    input.setText(newString);
                 }
             }
         });
