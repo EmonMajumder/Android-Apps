@@ -193,19 +193,56 @@ public class MainActivity extends AppCompatActivity {
 
         negpos.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
-                if(validateUserInput(hiddeninput.getText().toString())) {
+            public void onClick(View view) {
+                if (validateUserInput(input.getText().toString())) {
                     double x = Double.parseDouble(hiddeninput.getText().toString());
                     if (x % 1 == 0) {
                         int y = Integer.parseInt(hiddeninput.getText().toString()) * (-1);
-                        input.setText(Integer.toString(y));
+                        input.setText(input.getText().toString() + Integer.toString(y));
                         hiddeninput.setText(Integer.toString(y));
+                    }
+                    else if (validateUserInput(hiddeninput.getText().toString()))
+                    {
+                        double x = Double.parseDouble(hiddeninput.getText().toString());
 
-                    } else {
-                        x = Double.parseDouble(hiddeninput.getText().toString()) * (-1);
-                        input.setText(Double.toString(x));
-                        hiddeninput.setText(Double.toString(x));
+                        if (x % 1 == 0)
+                        {
+                            int y = Integer.parseInt(hiddeninput.getText().toString()) * (-1);
+                            char[] charArray = input.getText().toString().toCharArray();
+                            input.setText(null);
+                            for (char output : charArray) {
+                                input.setText(input.getText().toString() + output);
+                                if (output == '%' || output == '/' ||
+                                        output == '*' || output == '-' ||
+                                        output == '+') {
+                                    input.setText(input.getText().toString() + "(");
+                                    break;
+                                }
+                            }
+                            input.setText(input.getText().toString() + Integer.toString(y));
+                            hiddeninput.setText(Integer.toString(y));
+
+                        }
+                        else
+                        {
+                            x = Double.parseDouble(hiddeninput.getText().toString()) * (-1);
+                            input.setText(Double.toString(x));
+                            hiddeninput.setText(Double.toString(x));
+                        }
+                    }
+                    else if (validateUserInput(result.getText().toString()))
+                    {
+                        double x = Double.parseDouble(result.getText().toString());
+                        if (x % 1 == 0) {
+                            int y = Integer.parseInt(result.getText().toString()) * (-1);
+                            input.setText(Integer.toString(y));
+                            hiddeninput.setText(Integer.toString(y));
+
+                        } else {
+                            x = Double.parseDouble(result.getText().toString()) * (-1);
+                            input.setText(Double.toString(x));
+                            hiddeninput.setText(Double.toString(x));
+                        }
                     }
                 }
             }
@@ -452,9 +489,9 @@ public class MainActivity extends AppCompatActivity {
             }
             else
             {
-                input.setText(null);
-                hiddeninput.setText(null);
-                result.setText("Error!");
+//                input.setText(null);
+//                hiddeninput.setText(null);
+//                result.setText("Error!");
             }
 
         }
