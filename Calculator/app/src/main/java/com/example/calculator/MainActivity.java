@@ -243,13 +243,14 @@ public class MainActivity extends AppCompatActivity {
                 else if (validateUserInput(result.getText().toString()))
                 {
                     double x = Double.parseDouble(result.getText().toString());
-                    if (x % 1 == 0) {
-                        int y = Integer.parseInt(result.getText().toString()) * (-1);
-                        input.setText(Integer.toString(y));
-                        hiddeninput.setText(Integer.toString(y));
-
-                    } else {
-                        x = Double.parseDouble(result.getText().toString()) * (-1);
+                    x = x*(-1);
+                    if (x % 1 == 0)
+                    {
+                        input.setText(String.valueOf(Math.round(x)));
+                        hiddeninput.setText(String.valueOf(Math.round(x)));
+                    }
+                    else
+                    {
                         input.setText(Double.toString(x));
                         hiddeninput.setText(Double.toString(x));
                     }
