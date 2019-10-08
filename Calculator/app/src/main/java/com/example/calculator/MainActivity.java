@@ -196,53 +196,62 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (validateUserInput(input.getText().toString())) {
                     double x = Double.parseDouble(hiddeninput.getText().toString());
+                    x = x * (-1);
                     if (x % 1 == 0) {
-                        int y = Integer.parseInt(hiddeninput.getText().toString()) * (-1);
-                        input.setText(input.getText().toString() + Integer.toString(y));
-                        hiddeninput.setText(Integer.toString(y));
+                        input.setText(String.valueOf(Math.round(x)));
+                        hiddeninput.setText(String.valueOf(Math.round(x)));
                     }
-                    else if (validateUserInput(hiddeninput.getText().toString()))
+                    else
                     {
-                        double x = Double.parseDouble(hiddeninput.getText().toString());
-
-                        if (x % 1 == 0)
-                        {
-                            int y = Integer.parseInt(hiddeninput.getText().toString()) * (-1);
-                            char[] charArray = input.getText().toString().toCharArray();
-                            input.setText(null);
-                            for (char output : charArray) {
-                                input.setText(input.getText().toString() + output);
-                                if (output == '%' || output == '/' ||
-                                        output == '*' || output == '-' ||
-                                        output == '+') {
-                                    input.setText(input.getText().toString() + "(");
-                                    break;
-                                }
+                        input.setText(Double.toString(x));
+                        hiddeninput.setText(Double.toString(x));
+                    }
+                }
+                else if (validateUserInput(hiddeninput.getText().toString()))
+                {
+                    double x = Double.parseDouble(hiddeninput.getText().toString());
+                    x = x * (-1);
+                    char[] charArray = input.getText().toString().toCharArray();
+                    input.setText(null);
+                    for (int i=0;i<charArray.length;i++) {
+                        input.setText(input.getText().toString() + charArray[i]);
+                        if (charArray[i] == '%' || charArray[i] == '/' ||
+                                charArray[i] == '*' || charArray[i] == '-' ||
+                                charArray[i] == '+') {
+                            if(charArray[i+1] == '(')
+                            {
+                                break;
                             }
-                            input.setText(input.getText().toString() + Integer.toString(y));
-                            hiddeninput.setText(Integer.toString(y));
-
-                        }
-                        else
-                        {
-                            x = Double.parseDouble(hiddeninput.getText().toString()) * (-1);
-                            input.setText(Double.toString(x));
-                            hiddeninput.setText(Double.toString(x));
+                            else
+                            {
+                                input.setText(input.getText().toString() + "(");
+                                break;
+                            }
                         }
                     }
-                    else if (validateUserInput(result.getText().toString()))
+                    if (x % 1 == 0)
                     {
-                        double x = Double.parseDouble(result.getText().toString());
-                        if (x % 1 == 0) {
-                            int y = Integer.parseInt(result.getText().toString()) * (-1);
-                            input.setText(Integer.toString(y));
-                            hiddeninput.setText(Integer.toString(y));
+                        input.setText(input.getText().toString() + String.valueOf(Math.round(x)));
+                        hiddeninput.setText(String.valueOf(Math.round(x)));
+                    }
+                    else
+                    {
+                        input.setText(Double.toString(x));
+                        hiddeninput.setText(Double.toString(x));
+                    }
+                }
+                else if (validateUserInput(result.getText().toString()))
+                {
+                    double x = Double.parseDouble(result.getText().toString());
+                    if (x % 1 == 0) {
+                        int y = Integer.parseInt(result.getText().toString()) * (-1);
+                        input.setText(Integer.toString(y));
+                        hiddeninput.setText(Integer.toString(y));
 
-                        } else {
-                            x = Double.parseDouble(result.getText().toString()) * (-1);
-                            input.setText(Double.toString(x));
-                            hiddeninput.setText(Double.toString(x));
-                        }
+                    } else {
+                        x = Double.parseDouble(result.getText().toString()) * (-1);
+                        input.setText(Double.toString(x));
+                        hiddeninput.setText(Double.toString(x));
                     }
                 }
             }
