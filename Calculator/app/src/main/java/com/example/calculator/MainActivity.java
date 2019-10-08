@@ -1,7 +1,5 @@
 package com.example.calculator;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -35,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
     private EditText input;
     private EditText hiddeninput;
     private TextView result;
-    private TextView hiddenresult;
     private final char ADDITION = '+';
     private final char SUBSTRACTION = '-';
     private final char DIVISION = '/';
@@ -45,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     private final char EQUAL = '=';
     private double num1 = Double.NaN;
     private double num2 = Double.NaN;
-    private char ACTION;
+    private static char ACTION;
     private boolean dividebyzeroerror=false;
 
     //Function to check a number for Validation
@@ -446,35 +443,28 @@ public class MainActivity extends AppCompatActivity {
                 num2 = Double.parseDouble(hiddeninput.getText().toString());
                 switch (ACTION) {
                     case ADDITION:
-                        num1 = num1 + num2;
+                        num1 = Calcequation.Calculate(num1,num2,ADDITION);
                         break;
                     case SUBSTRACTION:
-                        num1 = num1 - num2;
+                        num1 = Calcequation.Calculate(num1,num2,SUBSTRACTION);
                         break;
                     case MULTIPLICATION:
-                        num1 = num1 * num2;
+                        num1 = Calcequation.Calculate(num1,num2,MULTIPLICATION);
                         break;
                     case DIVISION:
                         if (num2 == 0) {
                             result.setText("Division by Zero error");
                             dividebyzeroerror = true;
                         } else
-                            num1 = (num1 / num2);
+                            num1 = Calcequation.Calculate(num1,num2,DIVISION);
                         break;
                     case PERCENT:
-                        num1 = (num2 / num1) * 100;
+                        num1 = Calcequation.Calculate(num1,num2,PERCENT);
                         break;
                     case EQUAL:
                         break;
                 }
             }
-            else
-            {
-//                input.setText(null);
-//                hiddeninput.setText(null);
-//                result.setText("Error!");
-            }
-
         }
         else if(validateUserInput(hiddeninput.getText().toString()))
         {
@@ -484,7 +474,6 @@ public class MainActivity extends AppCompatActivity {
         {
             num1=Double.parseDouble(result.getText().toString());
         }
-
     }
 }
 
