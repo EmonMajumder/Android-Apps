@@ -32,6 +32,7 @@ public class QuizActivity extends AppCompatActivity {
     private int questionCounter;
     private int questionCountTotal;
     private Question currentQuestion;
+    private TextView textViewName;
 
     private int score;
     private boolean answered;
@@ -42,6 +43,10 @@ public class QuizActivity extends AppCompatActivity {
         setContentView(R.layout.activity_quiz);
 
         textViewScore = findViewById(R.id.txtViewScore);
+        Bundle b = getIntent().getExtras();
+        String playername = b.getString("username");
+        textViewName = findViewById(R.id.txtViewName);
+        textViewName.setText(playername);
         textViewQuestionnum = findViewById(R.id.txtViewQuestionNo);
         textViewTime = findViewById(R.id.txtViewTime);
         textViewQuestion = findViewById(R.id.txtViewQuestion);
@@ -89,6 +94,7 @@ public class QuizActivity extends AppCompatActivity {
         rb1.setTextColor(textColorDefaultRb);
         rb2.setTextColor(textColorDefaultRb);
         rb3.setTextColor(textColorDefaultRb);
+        rb4.setTextColor(textColorDefaultRb);
         rbGroup.clearCheck();
 
         if(questionCounter<questionCountTotal)
@@ -119,34 +125,56 @@ public class QuizActivity extends AppCompatActivity {
         if(selectedoption == currentQuestion.getAnswernum())
         {
             score++;
-            textViewScore.setText("Score: "+score);
         }
 
-        showAnswer();
+        showAnswer(selectedoption);
     }
 
-    private void showAnswer()
+    private void showAnswer(int selected)
     {
-        rb1.setTextColor(Color.RED);
-        rb2.setTextColor(Color.RED);
-        rb3.setTextColor(Color.RED);
-        rb4.setTextColor(Color.RED);
+//        rb1.setTextColor(Color.RED);
+//        rb2.setTextColor(Color.RED);
+//        rb3.setTextColor(Color.RED);
+//        rb4.setTextColor(Color.RED);
 
-        switch(currentQuestion.getAnswernum())
+        if(selected == currentQuestion.getAnswernum())
         {
-            case 1:
-                rb1.setTextColor(Color.GREEN);
-                break;
-            case 2:
-                rb1.setTextColor(Color.GREEN);
-                break;
-            case 3:
-                rb1.setTextColor(Color.GREEN);
-                break;
-            case 4:
-                rb1.setTextColor(Color.GREEN);
-                break;
+            switch(selected)
+            {
+                case 1:
+                    rb1.setTextColor(Color.GREEN);
+                    break;
+                case 2:
+                    rb2.setTextColor(Color.GREEN);
+                    break;
+                case 3:
+                    rb3.setTextColor(Color.GREEN);
+                    break;
+                case 4:
+                    rb4.setTextColor(Color.GREEN);
+                    break;
+            }
         }
+        else
+        {
+            switch(selected)
+            {
+                case 1:
+                    rb1.setTextColor(Color.RED);
+                    break;
+                case 2:
+                    rb2.setTextColor(Color.RED);
+                    break;
+                case 3:
+                    rb3.setTextColor(Color.RED);
+                    break;
+                case 4:
+                    rb4.setTextColor(Color.RED);
+                    break;
+            }
+        }
+
+        textViewScore.setText("Score: "+score);
 
         if(questionCounter<questionCountTotal)
         {
