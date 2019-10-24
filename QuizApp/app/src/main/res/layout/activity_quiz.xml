@@ -34,14 +34,14 @@
         android:id="@+id/txtViewQuestion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/RadiogrpOptions"
+        android:layout_above="@id/radiogrpOptions"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
         android:text="@string/Question"
         android:textAlignment="center" />
 
     <RadioGroup
-        android:id="@+id/RadiogrpOptions"
+        android:id="@+id/radiogrpOptions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
@@ -77,7 +77,7 @@
         android:id="@+id/btnNext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/RadiogrpOptions"
+        android:layout_below="@id/radiogrpOptions"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
         android:text="@string/Next" />
