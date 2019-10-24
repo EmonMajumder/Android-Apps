@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
             b.putString("username",name);
             intent.putExtras(b);
             startActivity(intent);
+
         }
         else
         {
