@@ -2,6 +2,7 @@ package com.example.quizapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -272,6 +273,11 @@ public class QuizActivity extends AppCompatActivity {
 
     private void finishQuiz()
     {
+//        Intent intent = new Intent(QuizActivity.this,MainActivity.class);
+//        Bundle b = new Bundle();
+//        b.putInt("HighScore",score);
+//        intent.putExtras(b);
+//        setResult(RESULT_OK,intent);
         finish();
     }
 }
