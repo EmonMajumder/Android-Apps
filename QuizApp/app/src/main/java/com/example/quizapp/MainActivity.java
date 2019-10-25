@@ -31,11 +31,9 @@ public class MainActivity extends AppCompatActivity {
 
     protected void onActivityResult(int requestCode,int resultCode,Intent data)
     {
-        if(requestCode==999 && resultCode == RESULT_OK)
+        if(requestCode==1 && resultCode == RESULT_OK)
         {
-            Bundle b = getIntent().getExtras();
-            int score = b.getInt("username");
-            txtviewhighscore.setText("Highscore: "+score);
+            txtviewhighscore.setText("Highscore: ".concat(data.getStringExtra("HighScore")));
         }
     }
 
@@ -46,6 +44,6 @@ public class MainActivity extends AppCompatActivity {
         Bundle b = new Bundle();
         b.putString("username",name);
         intent.putExtras(b);
-        startActivityForResult(intent,999);
+        startActivityForResult(intent,1);
     }
 }

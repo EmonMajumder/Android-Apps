@@ -123,50 +123,58 @@ public class QuizActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        String[] lines = str.split("\\r?\\n");
-
-        for(int i=0;i<lines.length;i++)
+        try
         {
-            String[] s = lines[i].split(":");
-            qes.add(s);
-            options.add(s[1]);
-        }
+            String[] lines = str.split("\\r?\\n");
 
-        for(int i=0;i<qes.size();i++)
-        {
-            Question question = new Question();
-            Collections.shuffle(options);
-            quesop.add(qes.get(i)[1]);
-            for(int k=1;k<=3;k++)
+            for(int i=0;i<lines.length;i++)
             {
-                if(!qes.get(i)[1].matches(options.get(k)))
-                {
-                    quesop.add(options.get(k));
-                }
-                else
-                {
-                    quesop.add(options.get(k+5));
-                }
+                String[] s = lines[i].split(":");
+                qes.add(s);
+                options.add(s[1]);
             }
 
-            Collections.shuffle(quesop);
-            question.setQuestion(qes.get(i)[0]);
-            question.setOption1(quesop.get(0));
-            question.setOption2(quesop.get(1));
-            question.setOption3(quesop.get(2));
-            question.setOption4(quesop.get(3));
-
-            for(int j=0;j<=3;j++)
+            for(int i=0;i<qes.size();i++)
             {
-                if(qes.get(i)[1].matches(quesop.get(j)))
+                Question question = new Question();
+                Collections.shuffle(options);
+                quesop.add(qes.get(i)[1]);
+                for(int k=1;k<=3;k++)
                 {
-                    question.setAnswernum(j+1);
-                    break;
+                    if(!qes.get(i)[1].matches(options.get(k)))
+                    {
+                        quesop.add(options.get(k));
+                    }
+                    else
+                    {
+                        quesop.add(options.get(k+5));
+                    }
                 }
+
+                Collections.shuffle(quesop);
+                question.setQuestion(qes.get(i)[0]);
+                question.setOption1(quesop.get(0));
+                question.setOption2(quesop.get(1));
+                question.setOption3(quesop.get(2));
+                question.setOption4(quesop.get(3));
+
+                for(int j=0;j<=3;j++)
+                {
+                    if(qes.get(i)[1].matches(quesop.get(j)))
+                    {
+                        question.setAnswernum(j+1);
+                        break;
+                    }
+                }
+                questionList.add(question);
+                quesop.clear();
             }
-            questionList.add(question);
-            quesop.clear();
         }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
     }
 
     private void showNextQuestion()
@@ -273,11 +281,10 @@ public class QuizActivity extends AppCompatActivity {
 
     private void finishQuiz()
     {
-//        Intent intent = new Intent(QuizActivity.this,MainActivity.class);
-//        Bundle b = new Bundle();
-//        b.putInt("HighScore",score);
-//        intent.putExtras(b);
-//        setResult(RESULT_OK,intent);
+
+        Intent intent = new Intent();
+        intent.putExtra("HighScore",Integer.toString(score));
+        setResult(RESULT_OK,intent);
         finish();
     }
 }
