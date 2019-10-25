@@ -141,7 +141,9 @@ public class QuizActivity extends AppCompatActivity {
                 String[] s = lines[i].split(":");
                 qes.add(s);
                 options.add(s[1]);
+                s = null;
             }
+            lines = null;
 
             for(int i=0;i<qes.size();i++)
             {
@@ -285,6 +287,7 @@ public class QuizActivity extends AppCompatActivity {
         else
         {
             btnNext.setText("Finish");
+            btnFinish.setVisibility(View.GONE);
         }
     }
 
