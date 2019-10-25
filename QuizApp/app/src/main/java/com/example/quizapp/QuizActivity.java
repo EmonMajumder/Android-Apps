@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -130,6 +131,7 @@ public class QuizActivity extends AppCompatActivity {
         catch (IOException e)
         {
             e.printStackTrace();
+            Log.w("Emon Quiz App",e);
         }
 
         try
@@ -184,8 +186,8 @@ public class QuizActivity extends AppCompatActivity {
         catch (Exception e)
         {
             e.printStackTrace();
+            Log.w("Emon Quiz App",e);
         }
-
     }
 
     private void showNextQuestion()
