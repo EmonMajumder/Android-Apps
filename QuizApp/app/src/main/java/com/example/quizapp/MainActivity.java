@@ -29,20 +29,9 @@ public class MainActivity extends AppCompatActivity {
     {
         Intent intent = new Intent(MainActivity.this,QuizActivity.class);
         name = EditName.getText().toString();
-        if(name.isEmpty())
-        {
-            Toast.makeText(MainActivity.this,"Please give your name",Toast.LENGTH_LONG).show();
-        }
-        else if(name.matches("^\\S+(\\s\\S+)*$"))
-        {
-            Bundle b = new Bundle();
-            b.putString("username",name);
-            intent.putExtras(b);
-            startActivity(intent);
-        }
-        else
-        {
-            Toast.makeText(MainActivity.this,"Invalid input for Name.",Toast.LENGTH_LONG).show();
-        }
+        Bundle b = new Bundle();
+        b.putString("username",name);
+        intent.putExtras(b);
+        startActivity(intent);
     }
 }

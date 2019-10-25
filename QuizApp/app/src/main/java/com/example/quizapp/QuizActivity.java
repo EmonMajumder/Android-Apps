@@ -31,14 +31,14 @@ public class QuizActivity extends AppCompatActivity {
     private RadioButton rb4;
     private Button btnNext;
     private ColorStateList textColorDefaultRb;
-    private List<Question> questionList;
+    private List<Question> questionList = new ArrayList<>();
     private int questionCounter;
     private int questionCountTotal;
     private Question currentQuestion;
     private TextView textViewName;
-
     private int score;
     private boolean answered;
+    private Button storyboard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +47,7 @@ public class QuizActivity extends AppCompatActivity {
 
         textViewScore = findViewById(R.id.txtViewScore);
         Bundle b = getIntent().getExtras();
-        String playername = b.getString("username");
         textViewName = findViewById(R.id.txtViewName);
-        textViewName.setText(playername);
         textViewQuestionnum = findViewById(R.id.txtViewQuestionNo);
         textViewTime = findViewById(R.id.txtViewTime);
         textViewQuestion = findViewById(R.id.txtViewQuestion);
@@ -59,42 +57,55 @@ public class QuizActivity extends AppCompatActivity {
         rb3 = findViewById(R.id.radioBtnOption3);
         rb4 = findViewById(R.id.radioBtnOption4);
         btnNext = findViewById(R.id.btnNext);
-
         textColorDefaultRb = rb1.getTextColors();
 
-        //QuizDbHelper dbHelper = new QuizDbHelper(this);
-        //questionList = dbHelper.getAllQuestions();
-        questionList = readfile();
-        questionCountTotal = questionList.size();
-        Collections.shuffle(questionList);
+        String playername = b.getString("username");
+        textViewName.setText(playername);
+        if(playername.isEmpty())
+        {
+            Toast.makeText(QuizActivity.this,"Please give your name",Toast.LENGTH_LONG).show();
+            finishQuiz();
+        }
+        else if(playername.matches("^\\S+(\\s\\S+)*$"))
+        {
+            readfile();
+            questionCountTotal = questionList.size();
+            Collections.shuffle(questionList);
 
-        showNextQuestion();
+            showNextQuestion();
 
-        btnNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(!answered)
-                {
-                    if(rb1.isChecked() || rb2.isChecked() || rb3.isChecked() || rb4.isChecked())
+            btnNext.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(!answered)
                     {
-                        checkAnswer();
+                        if(rb1.isChecked() || rb2.isChecked() || rb3.isChecked() || rb4.isChecked())
+                        {
+                            checkAnswer();
+                        }
+                        else
+                        {
+                            Toast.makeText(QuizActivity.this,"Select Answer first",Toast.LENGTH_LONG).show();
+                        }
                     }
                     else
                     {
-                        Toast.makeText(QuizActivity.this,"Select Answer first",Toast.LENGTH_LONG).show();
+                        showNextQuestion();
                     }
                 }
-                else
-                {
-                    showNextQuestion();
-                }
-            }
-        });
+            });
+        }
+        else
+        {
+            Toast.makeText(QuizActivity.this,"Invalid input for Name.",Toast.LENGTH_LONG).show();
+            finishQuiz();
+        }
+        //QuizDbHelper dbHelper = new QuizDbHelper(this);
+        //questionList = dbHelper.getAllQuestions();
     }
 
-    public List<Question> readfile()
+    public void readfile()
     {
-        List<Question> allquestions = new ArrayList<>();
         ArrayList<String[]> qes = new ArrayList<>();
         ArrayList<String> options = new ArrayList<>();
         ArrayList<String> quesop = new ArrayList<>();
@@ -153,10 +164,9 @@ public class QuizActivity extends AppCompatActivity {
                     break;
                 }
             }
-            allquestions.add(question);
+            questionList.add(question);
             quesop.clear();
         }
-        return allquestions;
     }
 
     private void showNextQuestion()
@@ -183,6 +193,7 @@ public class QuizActivity extends AppCompatActivity {
         }
         else
         {
+            storyboard = findViewById(R.id.btnStoryBoard);
             finishQuiz();
         }
     }
@@ -194,7 +205,12 @@ public class QuizActivity extends AppCompatActivity {
         int selectedoption = rbGroup.indexOfChild(rbSelected)+1;
         if(selectedoption == currentQuestion.getAnswernum())
         {
+            Toast.makeText(QuizActivity.this,"Correct",Toast.LENGTH_LONG).show();
             score++;
+        }
+        else
+        {
+            Toast.makeText(QuizActivity.this,"Incorrect",Toast.LENGTH_LONG).show();
         }
 
         showAnswer(selectedoption);
