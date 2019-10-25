@@ -37,6 +37,7 @@ public class QuizActivity extends AppCompatActivity {
     private int questionCountTotal;
     private Question currentQuestion;
     private TextView textViewName;
+    private Button btnFinish;
     private int score;
     private boolean answered;
 
@@ -58,6 +59,7 @@ public class QuizActivity extends AppCompatActivity {
         rb4 = findViewById(R.id.radioBtnOption4);
         btnNext = findViewById(R.id.btnNext);
         textColorDefaultRb = rb1.getTextColors();
+        btnFinish = findViewById(R.id.btnFinish);
 
         String playername = b.getString("username");
         textViewName.setText(playername);
@@ -92,6 +94,13 @@ public class QuizActivity extends AppCompatActivity {
                     {
                         showNextQuestion();
                     }
+                }
+            });
+
+            btnFinish.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finishQuiz();
                 }
             });
         }
