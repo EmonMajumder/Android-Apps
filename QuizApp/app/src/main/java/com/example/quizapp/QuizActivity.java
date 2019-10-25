@@ -38,7 +38,6 @@ public class QuizActivity extends AppCompatActivity {
     private TextView textViewName;
     private int score;
     private boolean answered;
-    private Button storyboard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -193,7 +192,6 @@ public class QuizActivity extends AppCompatActivity {
         }
         else
         {
-            storyboard = findViewById(R.id.btnStoryBoard);
             finishQuiz();
         }
     }
