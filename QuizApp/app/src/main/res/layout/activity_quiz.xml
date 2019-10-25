@@ -23,14 +23,16 @@
         android:id="@+id/txtViewScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Score" />
+        android:text="@string/Score"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/txtViewQuestionNo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/txtViewScore"
-        android:text="@string/QuestionNo" />
+        android:text="@string/QuestionNo"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/txtViewTime"
