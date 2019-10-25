@@ -12,6 +12,9 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -59,8 +62,9 @@ public class QuizActivity extends AppCompatActivity {
 
         textColorDefaultRb = rb1.getTextColors();
 
-        QuizDbHelper dbHelper = new QuizDbHelper(this);
-        questionList = dbHelper.getAllQuestions();
+        //QuizDbHelper dbHelper = new QuizDbHelper(this);
+        //questionList = dbHelper.getAllQuestions();
+        questionList = readfile();
         questionCountTotal = questionList.size();
         Collections.shuffle(questionList);
 
@@ -86,7 +90,73 @@ public class QuizActivity extends AppCompatActivity {
                 }
             }
         });
+    }
 
+    public List<Question> readfile()
+    {
+        List<Question> allquestions = new ArrayList<>();
+        ArrayList<String[]> qes = new ArrayList<>();
+        ArrayList<String> options = new ArrayList<>();
+        ArrayList<String> quesop = new ArrayList<>();
+        String str="";
+        try
+        {
+            InputStream inputStream = getAssets().open("Questions.txt");
+            int size = inputStream.available();
+            byte[] buffer = new byte[size];
+            inputStream.read(buffer);
+            str = new String(buffer);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+        String[] lines = str.split("\\r?\\n");
+
+        for(int i=0;i<lines.length;i++)
+        {
+            String[] s = lines[i].split(":");
+            qes.add(s);
+            options.add(s[1]);
+        }
+
+        for(int i=0;i<qes.size();i++)
+        {
+            Question question = new Question();
+            Collections.shuffle(options);
+            quesop.add(qes.get(i)[1]);
+            for(int k=1;k<=3;k++)
+            {
+                if(!qes.get(i)[1].matches(options.get(k)))
+                {
+                    quesop.add(options.get(k));
+                }
+                else
+                {
+                    quesop.add(options.get(k+5));
+                }
+            }
+
+            Collections.shuffle(quesop);
+            question.setQuestion(qes.get(i)[0]);
+            question.setOption1(quesop.get(0));
+            question.setOption2(quesop.get(1));
+            question.setOption3(quesop.get(2));
+            question.setOption4(quesop.get(3));
+
+            for(int j=0;j<=3;j++)
+            {
+                if(qes.get(i)[1].matches(quesop.get(j)))
+                {
+                    question.setAnswernum(j+1);
+                    break;
+                }
+            }
+            allquestions.add(question);
+            quesop.clear();
+        }
+        return allquestions;
     }
 
     private void showNextQuestion()

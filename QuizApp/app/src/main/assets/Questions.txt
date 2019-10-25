@@ -1,0 +1,10 @@
+This is the name of the latest Android version. : Android Q
+This is the name of the previous version to the above. : Pie
+This is the name of the first named Android version. : Cupcake
+This subfolder of app/src/main contains your app’s Java source code. : java
+This subfolder of app/src/main contains all the resources of your app such as layout files, images, themes and strings. : res
+This is what Android calls what in other programming environments might be called ‘forms’ or ‘screens’ that the user interacts with. : Activity
+An Android APK file has more in common with this type of file than an .exe file. : zip
+This file contains essential information about your app such as activities, services, permission, intents and basic information like the application name. : AndroidManifest.xml
+Lists the Android API build target. : <uses-sdk>
+Android's kernel is based on this technology. : Linux
