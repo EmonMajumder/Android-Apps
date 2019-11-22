@@ -29,8 +29,8 @@ public class ItemDetailFragment extends Fragment {
      * represents.
      */
     public static final String ARG_ITEM_ID = "item_id";
-    ImageView imageViewFlag;
-    Integer[] imageId = {R.drawable.a, R.drawable.b};
+//    ImageView imageViewFlag;
+//    Integer[] imageId = {R.drawable.a, R.drawable.b};
 
     /**
      * The dummy content this fragment is presenting.
@@ -56,11 +56,11 @@ public class ItemDetailFragment extends Fragment {
 
             Activity activity = this.getActivity();
             CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
-            ImageView appBar = activity.findViewById(R.id.imageView3);
+            //ImageView appBar = activity.findViewById(R.id.imageView3);
             if (appBarLayout != null) {
                 appBarLayout.setTitle(mItem.content);
 
-                appBar.setImageResource(imageId[Integer.parseInt(mItem.id)-1]);
+                //appBar.setImageResource(imageId[Integer.parseInt(mItem.id)-1]);
             }
         }
     }

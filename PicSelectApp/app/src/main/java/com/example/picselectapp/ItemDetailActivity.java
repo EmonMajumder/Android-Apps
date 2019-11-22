@@ -1,6 +1,8 @@
 package com.example.picselectapp;
 
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.media.Image;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -15,6 +17,7 @@ import androidx.appcompat.app.ActionBar;
 
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 /**
  * An activity representing a single Item detail screen. This
@@ -36,14 +39,14 @@ public class ItemDetailActivity extends AppCompatActivity {
 //        imageViewFlag = findViewById(R.id.imageView3);
 //        imageViewFlag.setImageResource(imageId[m]);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own detail action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own detail action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
 
         // Show the Up button in the action bar.
         ActionBar actionBar = getSupportActionBar();
@@ -68,8 +71,17 @@ public class ItemDetailActivity extends AppCompatActivity {
                     getIntent().getStringExtra(ItemDetailFragment.ARG_ITEM_ID));
             ItemDetailFragment fragment = new ItemDetailFragment();
             fragment.setArguments(arguments);
+
+
+            Bundle iarguments = new Bundle();
+            iarguments.putString(ImageFragment.ARG_ITEM_ID,
+                    getIntent().getStringExtra(ImageFragment.ARG_ITEM_ID));
+            ImageFragment imageFragment = new ImageFragment();
+            imageFragment.setArguments(iarguments);
+
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.item_detail_container, fragment)
+                    .add(R.id.item_detail_container, imageFragment)
                     .commit();
         }
     }
@@ -88,5 +100,17 @@ public class ItemDetailActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        // Checks the orientation of the screen
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            Toast.makeText(this, "landscape", Toast.LENGTH_SHORT).show();
+        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
+            Toast.makeText(this, "portrait", Toast.LENGTH_SHORT).show();
+        }
     }
 }

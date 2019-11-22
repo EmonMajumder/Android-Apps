@@ -11,16 +11,17 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".ItemListActivity"
+            android:configChanges="orientation"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".ItemDetailActivity"
+            android:configChanges="orientation"
             android:label="@string/title_item_detail"
             android:parentActivityName=".ItemListActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -28,6 +29,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.picselectapp.ItemListActivity" />
         </activity>
+
     </application>
 
 </manifest>
