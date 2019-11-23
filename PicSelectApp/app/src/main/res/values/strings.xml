@@ -2,9 +2,15 @@
     <string name="app_name">Pic Select App</string>
     <string name="title_item_detail">Item Detail</string>
     <string-array name="planets_array">
-        <item>Mercury</item>
-        <item>Venus</item>
-        <item>Earth</item>
-        <item>Mars</item>
+        <item>Bangladesh</item>
+        <item>Brazil</item>
+        <item>Canada</item>
+        <item>China</item>
+        <item>France</item>
+        <item>Germany</item>
+        <item>India</item>
+        <item>Ireland</item>
+        <item>Russia</item>
+        <item>USA</item>
     </string-array>
 </resources>

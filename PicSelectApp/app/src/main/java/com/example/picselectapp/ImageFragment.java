@@ -2,16 +2,11 @@ package com.example.picselectapp;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
 import com.example.picselectapp.dummy.DummyContent;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
 
 public class ImageFragment extends Fragment {
     /**
@@ -20,7 +15,8 @@ public class ImageFragment extends Fragment {
      */
     public static final String ARG_ITEM_ID = "item_id";
     ImageView imageViewFlag;
-    Integer[] imageId = {R.drawable.a, R.drawable.b};
+    Integer[] imageId = {R.drawable.bangladesh, R.drawable.brazil, R.drawable.canada, R.drawable.china, R.drawable.france,
+            R.drawable.germany,R.drawable.india, R.drawable.ireland, R.drawable.russia, R.drawable.usa};
 
     /**
      * The dummy content this fragment is presenting.
@@ -46,7 +42,7 @@ public class ImageFragment extends Fragment {
 
             Activity activity = this.getActivity();
             //CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
-            ImageView appBar = activity.findViewById(R.id.imageView3);
+            ImageView appBar = activity.findViewById(R.id.flag);
             if (appBar != null) {
                 //appBarLayout.setTitle(mItem.content);
 
@@ -54,17 +50,4 @@ public class ImageFragment extends Fragment {
             }
         }
     }
-
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//                             Bundle savedInstanceState) {
-//        View rootView = inflater.inflate(R.layout.item_detail, container, false);
-//        // Show the dummy content as text in a TextView.
-//
-//        if (mItem != null) {
-//            ((TextView) rootView.findViewById(R.id.item_detail)).setText(mItem.details);
-//        }
-//
-//        return rootView;
-//    }
 }
