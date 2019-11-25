@@ -1,56 +1,42 @@
 package com.example.picselectapp;
-
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.example.picselectapp.dummy.DummyContent;
-
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import static com.example.picselectapp.ItemDetailFragment.ARG_ITEM_ID;
 
-/**
- * An activity representing a list of Items. This activity
- * has different presentations for handset and tablet-size devices. On
- * handsets, the activity presents a list of items, which when touched,
- * lead to a {@link ItemDetailActivity} representing
- * item details. On tablets, the activity presents the list of items and
- * item details side-by-side using two vertical panes.
- */
+/** An activity representing a list of Items.*/
 public class ItemListActivity extends AppCompatActivity {
 
-    /**
-     * Whether or not the activity is in two-pane mode, i.e. running on a tablet
-     * device.
-     */
     public static List<String>Lines;
     public static SharedPreferences sp;
-    public static List<Integer>imageId = Arrays.asList(R.drawable.bangladesh, R.drawable.brazil, R.drawable.canada, R.drawable.china, R.drawable.france,
-            R.drawable.germany,R.drawable.india, R.drawable.ireland, R.drawable.russia, R.drawable.usa);
+    public static List<Integer>imageId = Arrays.asList(R.drawable.bangladesh,
+                                                        R.drawable.brazil,
+                                                        R.drawable.canada,
+                                                        R.drawable.china,
+                                                        R.drawable.france,
+                                                        R.drawable.germany,
+                                                        R.drawable.india,
+                                                        R.drawable.ireland,
+                                                        R.drawable.russia,
+                                                        R.drawable.usa);
+
     public static List<String>Values = new ArrayList<String>();
+
+    //Shared preferences data
     public static final String SHARED_PREFS = "sharedPrefs";
     public static final String TEXT = "0000000000";
     public static String text = "";
@@ -59,11 +45,14 @@ public class ItemListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //Put the names of countries from the string xml to a list.
         Lines = Arrays.asList(getResources().getStringArray(R.array.country_array));
+
+        //Load data from shared preferences.
         loadData();
 
         setContentView(R.layout.activity_item_list);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
 
@@ -76,6 +65,7 @@ public class ItemListActivity extends AppCompatActivity {
         recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, DummyContent.ITEMS));
     }
 
+    //Save data to shared prefernece.
     public void saveData(int id)
     {
         Values.set(id-1,"1");
@@ -100,6 +90,7 @@ public class ItemListActivity extends AppCompatActivity {
         ed.apply();
     }
 
+    //Get data from shared prefernece.
     public void loadData()
     {
         sp = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
@@ -118,7 +109,11 @@ public class ItemListActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 DummyContent.DummyItem item = (DummyContent.DummyItem) view.getTag();
+
+                //Remove a item from list view once clicked.
                 mValues.remove(mValues.lastIndexOf(item));
+
+                //save data in shared preference about the item clicked.
                 saveData(Integer.parseInt(item.id));
 
                 Context context = view.getContext();
@@ -143,7 +138,6 @@ public class ItemListActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
-
                 holder.mIdView.setText(mValues.get(position).id);
                 holder.mContentView.setText(mValues.get(position).content);
                 holder.itemView.setTag(mValues.get(position));
@@ -161,8 +155,8 @@ public class ItemListActivity extends AppCompatActivity {
 
             ViewHolder(View view) {
                 super(view);
-                mIdView = (TextView) view.findViewById(R.id.id_text);
-                mContentView = (TextView) view.findViewById(R.id.content);
+                mIdView = view.findViewById(R.id.id_text);
+                mContentView = view.findViewById(R.id.content);
             }
         }
     }
