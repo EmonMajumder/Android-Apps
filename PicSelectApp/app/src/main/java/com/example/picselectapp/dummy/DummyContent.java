@@ -25,11 +25,11 @@ public class DummyContent {
      */
     public static final Map<String, DummyItem> ITEM_MAP = new HashMap<String, DummyItem>();
 
-    private static final int COUNT = ItemListActivity.newLines.size();
+    private static final int COUNT = 10;
 
     static {
         // Add some sample items.
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < COUNT; i++) {
             if(ItemListActivity.Values.get(i).equals("0"))
             {
                 addItem(createDummyItem(i));
@@ -51,8 +51,6 @@ public class DummyContent {
     private static String makeDetails(int position) {
         StringBuilder builder = new StringBuilder();
         builder.append("This flag id: ").append(position+1);
-
-        //builder.append("\nDetails Item: ");
 
         return builder.toString();
     }

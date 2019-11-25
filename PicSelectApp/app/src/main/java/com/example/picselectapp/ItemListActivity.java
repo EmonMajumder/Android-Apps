@@ -47,19 +47,12 @@ public class ItemListActivity extends AppCompatActivity {
      * device.
      */
     public static List<String>Lines;
-    public static List<String>newLines = new ArrayList<String>();
     public static SharedPreferences sp;
-
-    public static List<Integer>newimageId = new ArrayList<>();
-
     public static List<Integer>imageId = Arrays.asList(R.drawable.bangladesh, R.drawable.brazil, R.drawable.canada, R.drawable.china, R.drawable.france,
             R.drawable.germany,R.drawable.india, R.drawable.ireland, R.drawable.russia, R.drawable.usa);
-
     public static List<String>Values = new ArrayList<String>();
-
     public static final String SHARED_PREFS = "sharedPrefs";
     public static final String TEXT = "0000000000";
-
     public static String text = "";
 
     @Override
@@ -67,11 +60,9 @@ public class ItemListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         Lines = Arrays.asList(getResources().getStringArray(R.array.country_array));
-        getData();
+        loadData();
 
         setContentView(R.layout.activity_item_list);
-
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
@@ -85,27 +76,11 @@ public class ItemListActivity extends AppCompatActivity {
         recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, DummyContent.ITEMS));
     }
 
-    public void getData()
-    {
-        loadData();
-
-        for(int i=0;i<10;i++)
-        {
-            if(Values.get(i).equals("0"))
-            {
-                newLines.add(Lines.get(i));
-                newimageId.add(imageId.get(i));
-            }
-        }
-    }
-
     public void saveData(int id)
     {
         Values.set(id-1,"1");
         sp = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         SharedPreferences.Editor ed = sp.edit();
-
-        //Values = Arrays.asList("0","0","0","0","0","0","0","0","0","0");
 
         String p="";
         for(String s : Values)
@@ -127,7 +102,7 @@ public class ItemListActivity extends AppCompatActivity {
 
     public void loadData()
     {
-        SharedPreferences sp = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        sp = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         text = sp.getString(TEXT,"0,0,0,0,0,0,0,0,0,0");
         Values = new ArrayList<String>(Arrays.asList(text.split(",")));
     }
@@ -143,9 +118,7 @@ public class ItemListActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 DummyContent.DummyItem item = (DummyContent.DummyItem) view.getTag();
-
                 mValues.remove(mValues.lastIndexOf(item));
-
                 saveData(Integer.parseInt(item.id));
 
                 Context context = view.getContext();
