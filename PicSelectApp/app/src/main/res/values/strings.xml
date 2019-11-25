@@ -13,4 +13,5 @@
         <item>Russia</item>
         <item>USA</item>
     </string-array>
+    <string name="imgname">National Flag</string>
 </resources>
