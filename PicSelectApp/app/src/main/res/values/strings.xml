@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">Pic Select App</string>
+    <string name="app_name">Emon Pic App</string>
     <string name="title_item_detail">Item Detail</string>
-    <string-array name="planets_array">
+    <string-array name="country_array">
         <item>Bangladesh</item>
         <item>Brazil</item>
         <item>Canada</item>

@@ -14,9 +14,6 @@ public class ImageFragment extends Fragment {
      * represents.
      */
     public static final String ARG_ITEM_ID = "item_id";
-    ImageView imageViewFlag;
-    Integer[] imageId = {R.drawable.bangladesh, R.drawable.brazil, R.drawable.canada, R.drawable.china, R.drawable.france,
-            R.drawable.germany,R.drawable.india, R.drawable.ireland, R.drawable.russia, R.drawable.usa};
 
     /**
      * The dummy content this fragment is presenting.
@@ -41,12 +38,11 @@ public class ImageFragment extends Fragment {
             mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
 
             Activity activity = this.getActivity();
-            //CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
+
             ImageView appBar = activity.findViewById(R.id.flag);
             if (appBar != null) {
-                //appBarLayout.setTitle(mItem.content);
 
-                appBar.setImageResource(imageId[Integer.parseInt(mItem.id)-1]);
+                appBar.setImageResource(ItemListActivity.imageId.get(Integer.parseInt(mItem.id)-1));
             }
         }
     }

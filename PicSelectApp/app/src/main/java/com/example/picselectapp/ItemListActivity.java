@@ -1,7 +1,10 @@
 package com.example.picselectapp;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,18 +12,25 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.picselectapp.dummy.DummyContent;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static com.example.picselectapp.ItemDetailFragment.ARG_ITEM_ID;
 
 /**
  * An activity representing a list of Items. This activity
@@ -36,35 +46,35 @@ public class ItemListActivity extends AppCompatActivity {
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
      */
-    private boolean mTwoPane;
     public static List<String>Lines;
+    public static List<String>newLines = new ArrayList<String>();
+    public static SharedPreferences sp;
+
+    public static List<Integer>newimageId = new ArrayList<>();
+
+    public static List<Integer>imageId = Arrays.asList(R.drawable.bangladesh, R.drawable.brazil, R.drawable.canada, R.drawable.china, R.drawable.france,
+            R.drawable.germany,R.drawable.india, R.drawable.ireland, R.drawable.russia, R.drawable.usa);
+
+    public static List<String>Values = new ArrayList<String>();
+
+    public static final String SHARED_PREFS = "sharedPrefs";
+    public static final String TEXT = "0000000000";
+
+    public static String text = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Lines = Arrays.asList(getResources().getStringArray(R.array.country_array));
+        getData();
+
         setContentView(R.layout.activity_item_list);
-        Lines= Arrays.asList(getResources().getStringArray(R.array.planets_array));
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
-        if (findViewById(R.id.item_detail_container) != null) {
-            // The detail container view will be present only in the
-            // large-screen layouts (res/values-w900dp).
-            // If this view is present, then the
-            // activity should be in two-pane mode.
-            mTwoPane = true;
-        }
 
         View recyclerView = findViewById(R.id.item_list);
         assert recyclerView != null;
@@ -72,43 +82,83 @@ public class ItemListActivity extends AppCompatActivity {
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, DummyContent.ITEMS, mTwoPane));
+        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, DummyContent.ITEMS));
     }
 
-    public static class SimpleItemRecyclerViewAdapter
+    public void getData()
+    {
+        loadData();
+
+        for(int i=0;i<10;i++)
+        {
+            if(Values.get(i).equals("0"))
+            {
+                newLines.add(Lines.get(i));
+                newimageId.add(imageId.get(i));
+            }
+        }
+    }
+
+    public void saveData(int id)
+    {
+        Values.set(id-1,"1");
+        sp = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        SharedPreferences.Editor ed = sp.edit();
+
+        //Values = Arrays.asList("0","0","0","0","0","0","0","0","0","0");
+
+        String p="";
+        for(String s : Values)
+        {
+            if(p.isEmpty())
+            {
+                p+=s;
+            }
+            else
+            {
+                p+=",";
+                p+=s;
+            }
+        }
+
+        ed.putString(TEXT,p);
+        ed.apply();
+    }
+
+    public void loadData()
+    {
+        SharedPreferences sp = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        text = sp.getString(TEXT,"0,0,0,0,0,0,0,0,0,0");
+        Values = new ArrayList<String>(Arrays.asList(text.split(",")));
+    }
+
+
+    public class SimpleItemRecyclerViewAdapter
             extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
 
         private final ItemListActivity mParentActivity;
-        private final List<DummyContent.DummyItem> mValues;
-        private final boolean mTwoPane;
+        public final List<DummyContent.DummyItem> mValues;
         private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DummyContent.DummyItem item = (DummyContent.DummyItem) view.getTag();
-                if (mTwoPane) {
-                    Bundle arguments = new Bundle();
-                    arguments.putString(ItemDetailFragment.ARG_ITEM_ID, item.id);
-                    ItemDetailFragment fragment = new ItemDetailFragment();
-                    fragment.setArguments(arguments);
-                    mParentActivity.getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.item_detail_container, fragment)
-                            .commit();
-                } else {
-                    Context context = view.getContext();
-                    Intent intent = new Intent(context, ItemDetailActivity.class);
-                    intent.putExtra(ItemDetailFragment.ARG_ITEM_ID, item.id);
 
-                    context.startActivity(intent);
-                }
+                DummyContent.DummyItem item = (DummyContent.DummyItem) view.getTag();
+
+                mValues.remove(mValues.lastIndexOf(item));
+
+                saveData(Integer.parseInt(item.id));
+
+                Context context = view.getContext();
+                Intent intent = new Intent(context, ItemDetailActivity.class);
+                intent.putExtra(ARG_ITEM_ID, item.id);
+                intent.putExtra(ImageFragment.ARG_ITEM_ID,item.id);
+                context.startActivity(intent);
             }
         };
 
-        SimpleItemRecyclerViewAdapter(ItemListActivity parent,
-                                      List<DummyContent.DummyItem> items,
-                                      boolean twoPane) {
+        SimpleItemRecyclerViewAdapter(ItemListActivity parent, List<DummyContent.DummyItem> items) {
             mValues = items;
             mParentActivity = parent;
-            mTwoPane = twoPane;
         }
 
         @Override
@@ -120,11 +170,11 @@ public class ItemListActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
-            holder.mIdView.setText(mValues.get(position).id);
-            holder.mContentView.setText(mValues.get(position).content);
 
-            holder.itemView.setTag(mValues.get(position));
-            holder.itemView.setOnClickListener(mOnClickListener);
+                holder.mIdView.setText(mValues.get(position).id);
+                holder.mContentView.setText(mValues.get(position).content);
+                holder.itemView.setTag(mValues.get(position));
+                holder.itemView.setOnClickListener(mOnClickListener);
         }
 
         @Override

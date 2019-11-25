@@ -1,9 +1,0 @@
-<?xml version ="1.0" encoding ="utf-8"?><!--  Learn More about how to use App Actions: https://developer.android.com/guide/actions/index.html -->
-<set xmlns:android="http://schemas.android.com/apk/res/android"
-    android:interpolator="@android:anim/accelerate_decelerate_interpolator">
-
-    <translate android:fromXDelta="0" android:toXDelta="-10%p" android:duration="150" />
-    <translate android:fromXDelta="0" android:toXDelta="-5%p" android:duration="150" android:startOffset="100"/>
-    <translate android:fromXDelta="0" android:toXDelta="-10%p" android:duration="150" android:startOffset="200"/>
-
-</set>

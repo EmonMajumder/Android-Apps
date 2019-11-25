@@ -16,8 +16,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.ActionBar;
 
 import android.view.MenuItem;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * An activity representing a single Item detail screen. This
@@ -27,26 +32,16 @@ import android.widget.Toast;
  */
 public class ItemDetailActivity extends AppCompatActivity {
 
-//    ImageView imageViewFlag;
-//    Integer[] imageId = {R.drawable.a, R.drawable.b};
+    //public static List<String> Lines;
+    Animation animation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Lines = Arrays.asList(getResources().getStringArray(R.array.country_array));
         setContentView(R.layout.activity_item_detail);
         Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
-
-//        imageViewFlag = findViewById(R.id.imageView3);
-//        imageViewFlag.setImageResource(imageId[m]);
-
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own detail action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
 
         // Show the Up button in the action bar.
         ActionBar actionBar = getSupportActionBar();
@@ -79,10 +74,16 @@ public class ItemDetailActivity extends AppCompatActivity {
             ImageFragment imageFragment = new ImageFragment();
             imageFragment.setArguments(iarguments);
 
+
+
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.item_detail_container, fragment)
                     .add(R.id.item_detail_container, imageFragment)
                     .commit();
+
+            ImageView imageView = (ImageView) findViewById(R.id.flag);
+            animation = AnimationUtils.loadAnimation(this,R.anim.wave);
+            imageView.startAnimation(animation);
         }
     }
 

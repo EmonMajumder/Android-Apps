@@ -1,10 +1,8 @@
 package com.example.picselectapp.dummy;
 
 import com.example.picselectapp.ItemListActivity;
-import com.example.picselectapp.R;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,8 +13,9 @@ import java.util.Map;
  * <p>
  * TODO: Replace all uses of this class before publishing your app.
  */
-public class DummyContent {
 
+
+public class DummyContent {
     /**
      * An array of sample (dummy) items.
      */
@@ -26,12 +25,15 @@ public class DummyContent {
      */
     public static final Map<String, DummyItem> ITEM_MAP = new HashMap<String, DummyItem>();
 
-    private static final int COUNT = 10;
+    private static final int COUNT = ItemListActivity.newLines.size();
 
     static {
         // Add some sample items.
-        for (int i = 0; i < COUNT; i++) {
-            addItem(createDummyItem(i));
+        for (int i = 0; i < 10; i++) {
+            if(ItemListActivity.Values.get(i).equals("0"))
+            {
+                addItem(createDummyItem(i));
+            }
         }
     }
 
@@ -41,15 +43,17 @@ public class DummyContent {
     }
 
     private static DummyItem createDummyItem(int position) {
+
         return new DummyItem(String.valueOf(position+1), ItemListActivity.Lines.get(position), makeDetails(position));
     }
 
+
     private static String makeDetails(int position) {
         StringBuilder builder = new StringBuilder();
-        builder.append("Details about Item: ").append(position);
-        for (int i = 0; i < position; i++) {
-            builder.append("\nMore details information here.");
-        }
+        builder.append("This flag id: ").append(position+1);
+
+        //builder.append("\nDetails Item: ");
+
         return builder.toString();
     }
 
