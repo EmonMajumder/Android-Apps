@@ -23,6 +23,8 @@ public class ItemListActivity extends AppCompatActivity {
 
     public static List<String>Lines;
     public static SharedPreferences sp;
+
+    //List of images
     public static List<Integer>imageId = Arrays.asList(R.drawable.bangladesh,
                                                         R.drawable.brazil,
                                                         R.drawable.canada,
@@ -85,7 +87,6 @@ public class ItemListActivity extends AppCompatActivity {
                 p+=s;
             }
         }
-
         ed.putString(TEXT,p);
         ed.apply();
     }
