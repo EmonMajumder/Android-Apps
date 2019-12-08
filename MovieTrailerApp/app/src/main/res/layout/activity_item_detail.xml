@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -36,25 +37,26 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-<!--    <view-->
-<!--        android:id="@+id/youtubeview"-->
-<!--        class="com.google.android.youtube.player.YouTubePlayerView"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_below="@id/app_bar" />-->
+    <!--    <fragment-->
+    <!--        android:id="@+id/youtubeplayerfragment"-->
+    <!--        android:name="com.google.android.youtube.player.YouTubePlayerSupportFragment"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_below="@id/app_bar" />-->
 
-    <fragment
-        android:id="@+id/youtubeplayerfragment"
-        android:name="com.google.android.youtube.player.YouTubePlayerFragment"
+    <FrameLayout
+        android:id="@+id/youtubeframe"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/app_bar" />
+        android:layout_height="75dp"
+        android:layout_below="@id/app_bar">
+
+    </FrameLayout>
 
     <Button
         android:id="@+id/btnplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/youtubeplayerfragment"
+        android:layout_below="@+id/youtubeframe"
         android:layout_centerHorizontal="true"
         android:text="@string/btnplay" />
 

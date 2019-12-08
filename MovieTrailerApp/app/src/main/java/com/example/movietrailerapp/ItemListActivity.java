@@ -39,7 +39,6 @@ public class ItemListActivity extends AppCompatActivity {
     public MovieDbHelper moviedbhelper = new MovieDbHelper(this);
     public static List<MovieItem> allMoviesList = new ArrayList<MovieItem>();
 
-    public static Drawable myDrawable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,22 +46,11 @@ public class ItemListActivity extends AppCompatActivity {
 
         allMoviesList = moviedbhelper.getAllMovies();
 
-        myDrawable = getResources().getDrawable(R.drawable.russia,null);
-
         setContentView(R.layout.activity_item_list);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setTitle("sjdgf dg dg gjdf");
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         View recyclerView = findViewById(R.id.item_list);
         assert recyclerView != null;
@@ -84,7 +72,7 @@ public class ItemListActivity extends AppCompatActivity {
                     MovieItem item = (MovieItem) view.getTag();
                     Context context = view.getContext();
                     Intent intent = new Intent(context, ItemDetailActivity.class);
-                    intent.putExtra(ItemDetailFragment.ARG_ITEM_ID, String.valueOf(item.id));
+                    intent.putExtra(ItemDetailActivity.ARG_ITEM_ID, String.valueOf(item.id));
                     context.startActivity(intent);
                 }
         };
@@ -105,7 +93,6 @@ public class ItemListActivity extends AppCompatActivity {
         public void onBindViewHolder(final ViewHolder holder, int position) {
             holder.mIdView.setText(String.valueOf(mValues.get(position).id));
             holder.mContentView.setText(mValues.get(position).name);
-            holder.mThumbnailView.setImageDrawable(myDrawable);
             holder.itemView.setTag(mValues.get(position));
             holder.itemView.setOnClickListener(mOnClickListener);
         }
