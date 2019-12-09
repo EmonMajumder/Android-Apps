@@ -3,4 +3,16 @@
     <string name="title_item_detail">Item Detail title</string>
     <string name="thumbnail_image">Thumbnail image</string>
     <string name="btnplay">Play</string>
+    <string name="movie_description">" "</string>
+    <string name="movie_name">" "</string>
+    <string name="movie_link"></string>
+    <string name="movie_rating"></string>
+    <string name="btnaddmovie">Add Movie</string>
+    <string name="txtviewname">Name</string>
+    <string name="txtviewdescription">Description</string>
+    <string name="txtviewlink">Link</string>
+    <string name="txtviewrating">Rating</string>
+    <string name="btnSave">Save</string>
+    <string name="btnback">Back</string>
+    <string name="btndelete">Delete</string>
 </resources>

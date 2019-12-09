@@ -24,7 +24,7 @@ public class MovieItem {
     public MovieItem(int id, String name, String thumbnail, String description, String link, int rating ) {
         this.id = id;
         this.name = name;
-        this.thumbnail = thumbnail;
+        this.thumbnail = "";
         this.description = description;
         this.link = link;
         this.rating = rating;

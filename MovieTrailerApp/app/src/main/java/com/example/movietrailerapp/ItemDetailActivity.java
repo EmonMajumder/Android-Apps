@@ -37,6 +37,7 @@ public class ItemDetailActivity extends AppCompatActivity {
     YouTubePlayerFragment youTubePlayerFragment;
     YouTubePlayerView youTubePlayerView;
     Button button;
+    Button delete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +66,7 @@ public class ItemDetailActivity extends AppCompatActivity {
 
             //youTubePlayerView = findViewById(R.id.youtubeview);
             button = findViewById(R.id.btnplay);
-
-
+            delete = findViewById(R.id.buttonback);
 
 //             Create the detail fragment and add it to the activity using a fragment transaction.
             Bundle arguments = new Bundle();
@@ -77,7 +77,7 @@ public class ItemDetailActivity extends AppCompatActivity {
             ItemDetailFragment myfragment = new ItemDetailFragment();
             myfragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.youtubeframe, myfragment)
+                    .add(R.id.item_detail_container, myfragment)
                     .addToBackStack(null)
                     .commit();
         }

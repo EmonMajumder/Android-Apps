@@ -162,6 +162,19 @@ public class MovieDbHelper extends SQLiteOpenHelper{
         db.insert(movieTable.TABLE_NAME,null,cv);
     }
 
+    public void addMovie(MovieItem movieitem)
+    {
+        db = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(movieTable.COLUMN_NAME,movieitem.name);
+        cv.put(movieTable.COLUMN_THUMBNAIL,movieitem.thumbnail);
+        cv.put(movieTable.COLUMN_DESCRIPTION,movieitem.description);
+        cv.put(movieTable.COLUMN_LINK,movieitem.link);
+        cv.put(movieTable.COLUMN_RATING,movieitem.rating);
+
+        db.insert(movieTable.TABLE_NAME,null,cv);
+    }
+
     public List<MovieItem> getAllMovies()
     {
         List<MovieItem> movieList = new ArrayList<>();
@@ -186,4 +199,6 @@ public class MovieDbHelper extends SQLiteOpenHelper{
 
         return movieList;
     }
+
+
 }

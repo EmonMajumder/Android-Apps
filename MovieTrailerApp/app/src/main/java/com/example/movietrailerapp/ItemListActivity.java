@@ -19,6 +19,7 @@ import com.google.android.material.snackbar.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -38,6 +39,7 @@ public class ItemListActivity extends AppCompatActivity {
 
     public MovieDbHelper moviedbhelper = new MovieDbHelper(this);
     public static List<MovieItem> allMoviesList = new ArrayList<MovieItem>();
+    FloatingActionButton addmovie;
 
 
     @Override
@@ -51,10 +53,29 @@ public class ItemListActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
         View recyclerView = findViewById(R.id.item_list);
         assert recyclerView != null;
         setupRecyclerView((RecyclerView) recyclerView);
+
+        addmovie = findViewById(R.id.fab);
+        addmovie.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivityForResult( new Intent(ItemListActivity.this,AddMovieTrailer.class),1);
+            }
+        });
+    }
+
+    protected void onActivityResult(int requestCode,int resultCode,Intent data)
+    {
+        if(requestCode==1 && resultCode == RESULT_OK)
+        {
+            allMoviesList = moviedbhelper.getAllMovies();
+            setContentView(R.layout.activity_item_list);
+            View recyclerView = findViewById(R.id.item_list);
+            assert recyclerView != null;
+            setupRecyclerView((RecyclerView) recyclerView);
+        }
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
