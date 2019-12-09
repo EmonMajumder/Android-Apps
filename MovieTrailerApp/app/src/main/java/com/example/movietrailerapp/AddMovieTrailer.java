@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,11 +14,6 @@ import com.example.movietrailerapp.moviecontent.MovieItem;
 
 public class AddMovieTrailer extends AppCompatActivity{
 
-    private String name;
-    private String thumbnail;
-    private String description;
-    private String link;
-    private int rating;
     private Button save;
     private Button back;
     private EditText EditName;
@@ -42,18 +38,88 @@ public class AddMovieTrailer extends AppCompatActivity{
         EditLink = findViewById(R.id.txtEditLink);
         EditRating = findViewById(R.id.txtEditrating);
 
+        back = findViewById(R.id.buttonback);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setResult(RESULT_OK,new Intent());
+                finish();
+            }
+        });
+
         save = findViewById(R.id.buttonsave);
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = EditName.getText().toString();
-                String thumbnail = "";
-                String description = EditDescription.getText().toString();
-                String link = EditLink.getText().toString();
-                int rating = Integer.parseInt(EditRating.getText().toString());
-                addMovieItem(name,description,link,rating);
-                setResult(RESULT_OK,new Intent());
-                finish();
+
+                try
+                {
+                    String name = EditName.getText().toString();
+                    String description = EditDescription.getText().toString();
+                    String link = EditLink.getText().toString();
+                    String ratingstr = EditRating.getText().toString();
+                    int rating = 0;
+                    int errorcount = 0;
+
+                    if(name.isEmpty())
+                    {
+                        Toast.makeText(AddMovieTrailer.this,"Please give a input for name",Toast.LENGTH_LONG).show();
+                        errorcount++;
+                    }
+                    else if(!name.matches("^\\S+(\\s\\S+)*$"))
+                    {
+                        Toast.makeText(AddMovieTrailer.this,"Invalid input for name",Toast.LENGTH_LONG).show();
+                        errorcount++;
+                    }
+
+                    if(description.isEmpty())
+                    {
+                        Toast.makeText(AddMovieTrailer.this,"Please give a input for description",Toast.LENGTH_LONG).show();
+                        errorcount++;
+                    }
+                    else if(!description.matches("^\\S+(\\s\\S+)*$"))
+                    {
+                        Toast.makeText(AddMovieTrailer.this,"Invalid input for name",Toast.LENGTH_LONG).show();
+                        errorcount++;
+                    }
+                    if(link.isEmpty())
+                    {
+                        Toast.makeText(AddMovieTrailer.this,"Please give a input for link",Toast.LENGTH_LONG).show();
+                        errorcount++;
+                    }
+                    else if(!link.matches("^\\S+(\\s\\S+)*$"))
+                    {
+                        Toast.makeText(AddMovieTrailer.this,"Invalid input for name",Toast.LENGTH_LONG).show();
+                        errorcount++;
+                    }
+                    if(ratingstr.isEmpty())
+                    {
+                        Toast.makeText(AddMovieTrailer.this,"Please give a input for rating",Toast.LENGTH_LONG).show();
+                        errorcount++;
+                    }
+                    else if(!ratingstr.matches("^\\d+$"))
+                    {
+                        Toast.makeText(AddMovieTrailer.this,"Invalid input for rating",Toast.LENGTH_LONG).show();
+                        errorcount++;
+                    }
+                    else if(Integer.parseInt(ratingstr)>10 || Integer.parseInt(ratingstr)<0){
+                        Toast.makeText(AddMovieTrailer.this,"Rating should be between 0 to 10",Toast.LENGTH_LONG).show();
+                        errorcount++;
+                    }
+                    else
+                    {
+                        rating = Integer.parseInt(ratingstr);
+                    }
+
+                    if(errorcount == 0)
+                    {
+                        addMovieItem(name,description,link,rating);
+                    }
+                }
+                catch(Exception e)
+                {
+                    Toast.makeText(AddMovieTrailer.this,"Invalid input for Name.",Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
@@ -63,5 +129,9 @@ public class AddMovieTrailer extends AppCompatActivity{
         MovieItem movieitem;
         movieitem = new MovieItem(0,name,"",description,link,rating);
         mdb.addMovie(movieitem);
+        EditName.setText("");
+        EditDescription.setText("");
+        EditLink.setText("");
+        EditRating.setText("");
     }
 }

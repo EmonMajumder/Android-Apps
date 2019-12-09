@@ -200,5 +200,9 @@ public class MovieDbHelper extends SQLiteOpenHelper{
         return movieList;
     }
 
-
+    public int deleteMovie(int mid) {
+        db = getWritableDatabase();
+        int a = db.delete(movieTable.TABLE_NAME,movieTable._ID+"=?",new String[]{String.valueOf(mid)});
+        return a;
+    }
 }

@@ -22,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -66,7 +67,7 @@ public class ItemListActivity extends AppCompatActivity {
         });
     }
 
-    protected void onActivityResult(int requestCode,int resultCode,Intent data)
+        protected void onActivityResult(int requestCode,int resultCode,Intent data)
     {
         if(requestCode==1 && resultCode == RESULT_OK)
         {
@@ -82,7 +83,7 @@ public class ItemListActivity extends AppCompatActivity {
         recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, MyMovies.ITEMS));
     }
 
-    public static class SimpleItemRecyclerViewAdapter
+    public class SimpleItemRecyclerViewAdapter
             extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
 
         private final ItemListActivity mParentActivity;
@@ -91,12 +92,14 @@ public class ItemListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                     MovieItem item = (MovieItem) view.getTag();
+                    //mValues.remove(mValues.lastIndexOf(item));
                     Context context = view.getContext();
                     Intent intent = new Intent(context, ItemDetailActivity.class);
                     intent.putExtra(ItemDetailActivity.ARG_ITEM_ID, String.valueOf(item.id));
                     context.startActivity(intent);
                 }
         };
+
 
         SimpleItemRecyclerViewAdapter(ItemListActivity parent, List<MovieItem> items) {
             mValues = items;

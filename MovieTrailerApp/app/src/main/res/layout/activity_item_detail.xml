@@ -9,26 +9,6 @@
     tools:context=".ItemDetailActivity"
     tools:ignore="MergeRootFrame">
 
-    <TableRow
-        android:id="@+id/savedlt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/youtubeframe"
-        android:layout_centerHorizontal="true">
-
-        <Button
-            android:id="@+id/buttondelete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/btndelete" />
-
-        <Button
-            android:id="@+id/btnplay"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/btnplay" />
-    </TableRow>
-
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
@@ -57,28 +37,66 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <ScrollView
+        android:id="@+id/scrlbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/app_bar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/youtubeframe"
+                android:layout_width="match_parent"
+                android:layout_height="200dp">
+
+            </FrameLayout>
+
+            <RatingBar
+                android:id="@+id/ratingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal" />
+
+            <TableRow
+                android:id="@+id/savedlt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal">
+
+                <Button
+                    android:id="@+id/buttondelete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/btndelete" />
+
+                <Button
+                    android:id="@+id/btnplay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/btnplay" />
+            </TableRow>
+
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/item_detail_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            </androidx.core.widget.NestedScrollView>
+
+        </LinearLayout>
+    </ScrollView>
+
     <!--    <fragment-->
     <!--        android:id="@+id/youtubeplayerfragment"-->
     <!--        android:name="com.google.android.youtube.player.YouTubePlayerSupportFragment"-->
     <!--        android:layout_width="match_parent"-->
     <!--        android:layout_height="wrap_content"-->
     <!--        android:layout_below="@id/app_bar" />-->
-
-    <FrameLayout
-        android:id="@+id/youtubeframe"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_below="@id/app_bar">
-
-    </FrameLayout>
-
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/item_detail_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/savedlt"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-    </androidx.core.widget.NestedScrollView>
 
 </RelativeLayout>
