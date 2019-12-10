@@ -72,7 +72,6 @@ public class ItemDetailActivity extends AppCompatActivity {
         //
         if (savedInstanceState == null) {
 
-            //youTubePlayerView = findViewById(R.id.youtubeview);
             play = findViewById(R.id.btnplay);
             play.setOnClickListener(new View.OnClickListener()
             {
@@ -80,15 +79,19 @@ public class ItemDetailActivity extends AppCompatActivity {
                 public void onClick(View view){
                     String id = getIntent().getStringExtra(ItemDetailActivity.ARG_ITEM_ID);
 
-                    String link = moviedbhelper.movielink(id);
-
-                    Intent intent = new Intent(ItemDetailActivity.this, VideoPlayer.class);
-                    intent.putExtra("vlink", link);
-                    startActivity(intent);
+                    try
+                    {
+                        String link = moviedbhelper.movielink(id);
+                        Intent intent = new Intent(ItemDetailActivity.this, VideoPlayer.class);
+                        intent.putExtra("vlink", link);
+                        startActivity(intent);
+                    }
+                    catch(Exception e)
+                    {
+                        Toast.makeText(ItemDetailActivity.this,"Video Unavailable",Toast.LENGTH_LONG).show();
+                    }
                 }
             });
-
-
 
             ratingBar = findViewById(R.id.ratingBar);
             submit = findViewById(R.id.buttonsubmit);
