@@ -15,4 +15,6 @@
     <string name="btnSave">Save</string>
     <string name="btnback">Back</string>
     <string name="btndelete">Delete</string>
+    <string name="btnsubmit">Submit</string>
+    <string name="mrating">0</string>
 </resources>

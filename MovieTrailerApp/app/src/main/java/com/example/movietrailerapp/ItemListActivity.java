@@ -86,9 +86,9 @@ public class ItemListActivity extends AppCompatActivity {
     public class SimpleItemRecyclerViewAdapter
             extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
 
-        private final ItemListActivity mParentActivity;
-        private final List<MovieItem> mValues;
-        private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
+        private ItemListActivity mParentActivity;
+        private List<MovieItem> mValues;
+        private View.OnClickListener mOnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                     MovieItem item = (MovieItem) view.getTag();
@@ -117,6 +117,7 @@ public class ItemListActivity extends AppCompatActivity {
         public void onBindViewHolder(final ViewHolder holder, int position) {
             holder.mIdView.setText(String.valueOf(mValues.get(position).id));
             holder.mContentView.setText(mValues.get(position).name);
+            holder.mRatingView.setText(String.valueOf(mValues.get(position).rating));
             holder.itemView.setTag(mValues.get(position));
             holder.itemView.setOnClickListener(mOnClickListener);
         }
@@ -129,13 +130,13 @@ public class ItemListActivity extends AppCompatActivity {
         class ViewHolder extends RecyclerView.ViewHolder {
             final TextView mIdView;
             final TextView mContentView;
-            final ImageView mThumbnailView;
+            final TextView mRatingView;
 
             ViewHolder(View view) {
                 super(view);
                 mIdView = (TextView) view.findViewById(R.id.id_text);
                 mContentView = (TextView) view.findViewById(R.id.content);
-                mThumbnailView = (ImageView) view.findViewById(R.id.thumbnailimageView);
+                mRatingView = view.findViewById(R.id.mrating);
             }
         }
     }

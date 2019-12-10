@@ -59,7 +59,9 @@
                 android:id="@+id/ratingBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal" />
+                android:layout_gravity="center_horizontal"
+                android:numStars="5"
+                android:stepSize=".5"/>
 
             <TableRow
                 android:id="@+id/savedlt"
@@ -79,6 +81,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/btnplay" />
+
+                <Button
+                    android:id="@+id/buttonsubmit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/btnsubmit" />
             </TableRow>
 
             <androidx.core.widget.NestedScrollView

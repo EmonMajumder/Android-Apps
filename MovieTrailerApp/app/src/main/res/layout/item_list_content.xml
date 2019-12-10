@@ -21,13 +21,13 @@
         android:layout_margin="@dimen/text_margin"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
-    <ImageView
-        android:id="@+id/thumbnailimageView"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:contentDescription="@string/thumbnail_image"
-        app:layout_constraintEnd_toEndOf="@+id/linearlayout"
-        tools:srcCompat="@tools:sample/avatars" />
+    <TextView
+        android:id="@+id/mrating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        android:text="@string/mrating"
+        android:textAlignment="viewEnd"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
 </LinearLayout>

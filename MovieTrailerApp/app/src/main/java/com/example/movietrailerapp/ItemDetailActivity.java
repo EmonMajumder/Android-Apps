@@ -22,6 +22,7 @@ import android.view.MenuItem;
 
 import android.view.View;
 import android.widget.Button;
+import android.widget.RatingBar;
 import android.widget.Toast;
 
 
@@ -41,8 +42,10 @@ public class ItemDetailActivity extends AppCompatActivity {
 
     YouTubePlayerFragment youTubePlayerFragment;
     YouTubePlayerView youTubePlayerView;
-    Button button;
+    Button play;
     Button delete;
+    Button submit;
+    RatingBar ratingBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,18 +73,45 @@ public class ItemDetailActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
 
             //youTubePlayerView = findViewById(R.id.youtubeview);
-            button = findViewById(R.id.btnplay);
+            play = findViewById(R.id.btnplay);
 
+            ratingBar = findViewById(R.id.ratingBar);
+            submit = findViewById(R.id.buttonsubmit);
+            submit.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View view){
+
+                    try
+                    {
+                        float rate = 2*ratingBar.getRating();
+                        int rateint = (int)rate;
+                        String id = getIntent().getStringExtra(ItemDetailActivity.ARG_ITEM_ID);
+                        if(moviedbhelper.updaterating(id,rateint))
+                        {
+                            Toast.makeText(ItemDetailActivity.this,"Your rating was submitted.",Toast.LENGTH_LONG).show();
+                        }
+                        else
+                        {
+                            Toast.makeText(ItemDetailActivity.this,"Error submitting your rating.",Toast.LENGTH_LONG).show();
+                        }
+
+                    }
+                    catch(Exception e)
+                    {
+                        Toast.makeText(ItemDetailActivity.this,"Error submitting your rating.",Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
 
             delete = findViewById(R.id.buttondelete);
-
             delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int result;
                     try
                     {
-                        String id = getIntent().getStringExtra("id");
+                        String id = getIntent().getStringExtra(ItemDetailActivity.ARG_ITEM_ID);
                         result = moviedbhelper.deleteMovie(Integer.parseInt(id));
 
                         if(result>0)
