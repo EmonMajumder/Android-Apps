@@ -40,6 +40,7 @@ public class ItemListActivity extends AppCompatActivity {
 
     public MovieDbHelper moviedbhelper = new MovieDbHelper(this);
     public static List<MovieItem> allMoviesList = new ArrayList<MovieItem>();
+    public static List<MovieItem> mValues;
     FloatingActionButton addmovie;
 
 
@@ -87,7 +88,7 @@ public class ItemListActivity extends AppCompatActivity {
             extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
 
         private ItemListActivity mParentActivity;
-        private List<MovieItem> mValues;
+        //private List<MovieItem> mValues;
         private View.OnClickListener mOnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {

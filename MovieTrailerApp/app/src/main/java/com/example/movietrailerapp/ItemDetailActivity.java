@@ -74,6 +74,21 @@ public class ItemDetailActivity extends AppCompatActivity {
 
             //youTubePlayerView = findViewById(R.id.youtubeview);
             play = findViewById(R.id.btnplay);
+            play.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View view){
+                    String id = getIntent().getStringExtra(ItemDetailActivity.ARG_ITEM_ID);
+
+                    String link = moviedbhelper.movielink(id);
+
+                    Intent intent = new Intent(ItemDetailActivity.this, VideoPlayer.class);
+                    intent.putExtra("vlink", link);
+                    startActivity(intent);
+                }
+            });
+
+
 
             ratingBar = findViewById(R.id.ratingBar);
             submit = findViewById(R.id.buttonsubmit);
@@ -112,6 +127,7 @@ public class ItemDetailActivity extends AppCompatActivity {
                     try
                     {
                         String id = getIntent().getStringExtra(ItemDetailActivity.ARG_ITEM_ID);
+
                         result = moviedbhelper.deleteMovie(Integer.parseInt(id));
 
                         if(result>0)
