@@ -1,17 +1,11 @@
 package com.example.movietrailerapp.moviecontent;
-
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.widget.Toast;
-
 import com.example.movietrailerapp.moviecontent.MovieContract.*;
-import com.example.movietrailerapp.moviecontent.MyMovies.*;
 import androidx.annotation.Nullable;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,7 +45,7 @@ public class MovieDbHelper extends SQLiteOpenHelper{
 
     private void fillmovieTable()
     {
-        MovieItem m1 = new MovieItem(1,"NO TIME TO DIE","https://i.ytimg.com/an_webp/ZGSBSRnrCnQ/mqdefault_6s.webp?du=3000&sqp=CLS9r-8F&rs=AOn4CLCv9kalRouzRICwbxAzqkNeWye-GQ","PLOT: Bond has left active service. His peace is short-lived when his old friend Felix " +
+        MovieItem m1 = new MovieItem(1,"NO TIME TO DIE","","PLOT: Bond has left active service. His peace is short-lived when his old friend Felix " +
                 "Leiter from the CIA turns up asking for help, leading Bond onto the trail of a mysterious villain armed with dangerous new technology." +
                 "\nCAST: Daniel Craig, Rami Malek, Ana de Armas, Léa Seydoux","ZGSBSRnrCnQ",(int)(Math.random()*5+5));
 
@@ -225,6 +219,22 @@ public class MovieDbHelper extends SQLiteOpenHelper{
         {
             do{
                 s = c.getString(c.getColumnIndex(movieTable.COLUMN_LINK));
+            }while(c.moveToNext());
+        }
+        c.close();
+
+        return s;
+    }
+
+    public String movieid(String name)
+    {
+        String s = "";
+        db = getReadableDatabase();
+        Cursor c = db.rawQuery("SELECT " + movieTable._ID + " FROM " + movieTable.TABLE_NAME +" WHERE " + movieTable.COLUMN_NAME + " like '%" + name + "%'" +" ;", null);
+        if(c.moveToFirst())
+        {
+            do{
+                s = c.getString(c.getColumnIndex(movieTable._ID));
             }while(c.moveToNext());
         }
         c.close();

@@ -1,16 +1,14 @@
 package com.example.movietrailerapp;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.movietrailerapp.moviecontent.MovieDbHelper;
 import com.example.movietrailerapp.moviecontent.MovieItem;
+import com.example.movietrailerapp.moviecontent.MyMovies;
 
 public class AddMovieTrailer extends AppCompatActivity{
 
@@ -30,12 +28,10 @@ public class AddMovieTrailer extends AppCompatActivity{
         final Intent intent = getIntent();
         String v = intent.getStringExtra("key");
         setContentView(R.layout.add_movie);
-
         EditName = findViewById(R.id.txtEditName);
         EditDescription = findViewById(R.id.txtEditdescription);
         EditLink = findViewById(R.id.txtEditLink);
         EditRating = findViewById(R.id.txtEditrating);
-
         back = findViewById(R.id.buttonback);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,6 +52,7 @@ public class AddMovieTrailer extends AppCompatActivity{
                     String description = EditDescription.getText().toString();
                     String link = EditLink.getText().toString();
                     String ratingstr = EditRating.getText().toString();
+
                     int rating = 0;
                     int errorcount = 0;
 
@@ -122,14 +119,24 @@ public class AddMovieTrailer extends AppCompatActivity{
         });
     }
 
+    //Function to add movie to the datatbase.
     private void addMovieItem(String name, String description,String link,int rating)
     {
         MovieItem movieitem;
+
         movieitem = new MovieItem(0,name,"",description,link,rating);
         mdb.addMovie(movieitem);
+
+        Toast.makeText(AddMovieTrailer.this,"Saved",Toast.LENGTH_LONG).show();
+
         EditName.setText("");
         EditDescription.setText("");
         EditLink.setText("");
         EditRating.setText("");
+
+        String id = mdb.movieid(movieitem.name);
+        movieitem.id = Integer.parseInt(id);
+        MyMovies.ITEMS.add(movieitem);
+        MyMovies.ITEM_MAP.put(String.valueOf(movieitem.id), movieitem);
     }
 }

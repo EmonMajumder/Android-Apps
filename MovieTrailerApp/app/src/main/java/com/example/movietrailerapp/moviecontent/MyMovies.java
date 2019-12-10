@@ -16,7 +16,7 @@ public class MyMovies {
      */
     public static Map<String, MovieItem> ITEM_MAP = new HashMap<>();
 
-    private static final int COUNT = ItemListActivity.allMoviesList.size();
+    private static int COUNT = ItemListActivity.allMoviesList.size();
 
     static {
         // Add some sample items.
