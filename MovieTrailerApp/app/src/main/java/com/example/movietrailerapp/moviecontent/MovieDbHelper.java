@@ -193,6 +193,7 @@ public class MovieDbHelper extends SQLiteOpenHelper{
                 movieItem.rating =  Integer.parseInt(c.getString(c.getColumnIndex(movieTable.COLUMN_RATING)));
 
                 movieList.add(movieItem);
+
             }while(c.moveToNext());
         }
         c.close();

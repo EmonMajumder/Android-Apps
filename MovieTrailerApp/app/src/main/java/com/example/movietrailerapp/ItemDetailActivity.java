@@ -1,47 +1,25 @@
 package com.example.movietrailerapp;
-
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-
 import com.example.movietrailerapp.moviecontent.MovieDbHelper;
 import com.example.movietrailerapp.moviecontent.MovieItem;
-import com.example.movietrailerapp.moviecontent.MyMovies;
 import com.google.android.youtube.player.YouTubePlayerView;
 import com.google.android.youtube.player.YouTubePlayerFragment;
 import androidx.appcompat.widget.Toolbar;
-
-
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.ActionBar;
-
-
 import android.view.MenuItem;
-
 import android.view.View;
 import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.Toast;
 
-
-/**
- * An activity representing a single Item detail screen. This
- * activity is only used on narrow width devices. On tablet-size devices,
- * item details are presented side-by-side with a list of items
- * in a {@link ItemListActivity}.
- */
+/** An activity representing a list of Items.*/
 public class ItemDetailActivity extends AppCompatActivity {
 
     public MovieDbHelper moviedbhelper = new MovieDbHelper(this);
-    public static final int RECOVERY_DIALOG_REQUEST = 1;
-    public static final String VIDEO_ID = "Your Video ID";
     public static final String ARG_ITEM_ID = "item_id";
-    private MovieItem mItem;
 
-    YouTubePlayerFragment youTubePlayerFragment;
-    YouTubePlayerView youTubePlayerView;
     Button play;
     Button delete;
     Button submit;
@@ -61,15 +39,6 @@ public class ItemDetailActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        // savedInstanceState is non-null when there is fragment state
-        // saved from previous configurations of this activity
-        // (e.g. when rotating the screen from portrait to landscape).
-        // In this case, the fragment will automatically be re-added
-        // to its container so we don't need to manually add it.
-        // For more information, see the Fragments API guide at:
-        //
-        // http://developer.android.com/guide/components/fragments.html
-        //
         if (savedInstanceState == null) {
 
             play = findViewById(R.id.btnplay);

@@ -20,9 +20,7 @@ public class AddMovieTrailer extends AppCompatActivity{
     private EditText EditDescription;
     private EditText EditLink;
     private EditText EditRating;
-
-
-    MovieDbHelper mdb;
+    private MovieDbHelper mdb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

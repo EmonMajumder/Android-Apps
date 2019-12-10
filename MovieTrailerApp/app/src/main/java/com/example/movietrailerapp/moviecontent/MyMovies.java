@@ -10,11 +10,11 @@ public class MyMovies {
     /**
      * An array of movie type items.
      */
-    public static final List<MovieItem> ITEMS = new ArrayList<>();
+    public static List<MovieItem> ITEMS = new ArrayList<>();
     /**
      * A map of sample (dummy) items, by ID.
      */
-    public static final Map<String, MovieItem> ITEM_MAP = new HashMap<>();
+    public static Map<String, MovieItem> ITEM_MAP = new HashMap<>();
 
     private static final int COUNT = ItemListActivity.allMoviesList.size();
 
